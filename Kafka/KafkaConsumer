@@ -1,0 +1,5 @@
+from kafka import KafkaConsumer
+
+consumer = KafkaConsumer('test-qsy', bootstrap_servers='10.255.175.80:9094')
+for msg in consumer:
+    print(msg)
