@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from config import DevConfig
 from flask_sqlalchemy import SQLAlchemy
 
@@ -26,13 +26,6 @@ class User(db.Model):
         return "<User '{}'>".format(self.username)
 
 
-tags = db.Table(
-    'Post_Tags',
-    db.Column('post_id', db.Integer(), db.ForeignKey('Posts.id')),
-    db.Column('tag_id', db.Integer(), db.ForeignKey('Tags.id'))
-)
-
-
 class Post(db.Model):
     __tablename__ = 'Posts'
 
@@ -51,7 +44,7 @@ class Post(db.Model):
         self.title = title
 
     def __repr__(self):
-        return "Post '{}'>".format(self.title)
+        return "<Post '{}'>".format(self.title)
 
 
 class Tag(db.Model):
@@ -68,8 +61,7 @@ class Tag(db.Model):
 
 
 class Comment(db.Model):
-    __tablename__ = 'Commetns'
-
+    __tablename__ = 'Comments'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(255))
     text = db.Column(db.Text())
@@ -78,6 +70,17 @@ class Comment(db.Model):
 
     def __repr__(self):
         return "<Comment '{}'>".format(self.text[:15])
+
+
+tags = db.Table(
+    'Post_Tags',
+    db.Column('post_id', db.Integer(), db.ForeignKey('Posts.id')),
+    db.Column('tag_id', db.Integer(), db.ForeignKey('Tags.id'))
+)
+
+
+def sidebar_data():
+    recent = Post
 
 
 @app.route('/')
