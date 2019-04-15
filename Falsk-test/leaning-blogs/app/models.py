@@ -39,9 +39,9 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def generate_confirmation_token(self, expiration=3600*24*14):
+    def generate_confirmation_token(self, expiration=3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'confirm': self.id})
+        return s.dumps({'confirm': self.id}).decode('utf-8')  # 这是一个坑，不加decode方法的话验证会出错，在第二版加上了，第一版没有
 
     def confirm(self, token):
         s = Serializer(current_app.config['SECRET_KEY'])
