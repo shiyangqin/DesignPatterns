@@ -9,8 +9,8 @@ class Config:
     MAIL_SERVER = 'smtp.yeah.net'
     MAIL_PORT = 25
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'shiyangqin@yeah.net'
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'shouquanma790906'
     FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
     FLASKY_MAIL_SENDER = 'Flasky Admin <shiyangqin@yeah.net>'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
