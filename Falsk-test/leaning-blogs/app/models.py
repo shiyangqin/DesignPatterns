@@ -45,7 +45,7 @@ class User(UserMixin, db.Model):
     def generate_confirmation_token(self, expiration=3600):
         """生成token，有效期为1个小时"""
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'confirm': self.id}).decode('utf-8')  # 这是一个坑，不加decode方法的话验证会出错，在第二版加上了，第一版没有
+        return s.dumps({'confirm': self.id}).decode('utf-8')  # 这是一个坑，不加decode方法的话验证会出错，书中在第二版加上了，第一版没有
 
     def confirm(self, token):
         """验证token"""
