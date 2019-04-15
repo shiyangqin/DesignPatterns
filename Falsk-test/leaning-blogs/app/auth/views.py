@@ -10,6 +10,7 @@ from ..models import User
 
 @auth.before_app_request
 def before_request():
+    """过滤未确认的用户"""
     if current_user.is_authenticated \
             and not current_user.confirmed \
             and request.endpoint \
@@ -20,6 +21,7 @@ def before_request():
 
 @auth.route('/unconfirmed')
 def unconfirmed():
+    """确认账户相关信息界面"""
     if current_user.is_anonymous or current_user.confirmed:
         return redirect(url_for('main.index'))
     return render_template('auth/unconfirmed.html')
@@ -27,6 +29,7 @@ def unconfirmed():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    """登录"""
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -40,6 +43,7 @@ def login():
 @auth.route('/logout')
 @login_required
 def logout():
+    """登出"""
     logout_user()
     flash('You have been logged out.')
     return redirect(url_for('main.index'))
@@ -47,11 +51,10 @@ def logout():
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+    """注册"""
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data,
-                    username=form.username.data,
-                    password=form.password.data)
+        user = User(email=form.email.data, username=form.username.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
@@ -64,6 +67,7 @@ def register():
 @auth.route('/confirm/<token>')
 @login_required
 def confirm(token):
+    """注册确认"""
     if current_user.confirmed:
         return redirect(url_for('main.index'))
     if current_user.confirm(token):
@@ -76,6 +80,7 @@ def confirm(token):
 @auth.route('/confirm')
 @login_required
 def resend_confirmation():
+    """重新发送确认邮件"""
     token = current_user.generate_confirmation_token()
     send_email(current_user.email, 'Confirm Your Account',
                'auth/email/confirm', user=current_user, token=token)
@@ -86,6 +91,7 @@ def resend_confirmation():
 @auth.route('/change-password', methods=['GET', 'POST'])
 @login_required
 def change_password():
+    """修改密码"""
     form = ChangePasswordForm()
     if form.validate_on_submit():
         if current_user.verify_password(form.old_password.data):

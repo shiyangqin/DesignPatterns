@@ -30,20 +30,25 @@ class User(UserMixin, db.Model):
 
     @property
     def password(self):
+        """不能直接获取密码"""
         raise AttributeError('password is not a readable attribute')
 
     @password.setter
     def password(self, password):
+        """设置密码"""
         self.password_hash = generate_password_hash(password)
 
     def verify_password(self, password):
+        """验证密码"""
         return check_password_hash(self.password_hash, password)
 
     def generate_confirmation_token(self, expiration=3600):
+        """生成token，有效期为1个小时"""
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'confirm': self.id}).decode('utf-8')  # 这是一个坑，不加decode方法的话验证会出错，在第二版加上了，第一版没有
 
     def confirm(self, token):
+        """验证token"""
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
