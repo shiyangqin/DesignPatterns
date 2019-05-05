@@ -2,6 +2,12 @@ from flask import render_template
 from . import main
 
 
+@main.app_errorhandler(403)
+def forbidden(e):
+    """403返回界面"""
+    return render_template('403.html'), 403
+
+
 @main.app_errorhandler(404)
 def page_not_found(e):
     """404返回界面"""
