@@ -12,7 +12,11 @@ from . import db, login_manager
 
 
 class Permission:
-    """权限"""
+    """
+    权限
+    这里的权限实现使用数字，当权限数量多了就会有问题
+    django里的权限实现方式是有一个权限表，用户和权限是一对多的关系
+    """
     FOLLOW = 0x01
     COMMENT = 0x02
     WRITE_ARTICLES = 0x04
@@ -42,6 +46,7 @@ class Post(db.Model):
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
+        """修改文章"""
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
                         'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
                         'h1', 'h2', 'h3', 'p']
@@ -130,6 +135,7 @@ class User(UserMixin, db.Model):
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
+        # 设置默认权限
         if self.role is None:
             if self.email == current_app.config['FLASKY_ADMIN']:
                 self.role = Role.query.filter_by(permissions=0xff).first()
@@ -138,6 +144,7 @@ class User(UserMixin, db.Model):
         if self.email is not None and self.avatar_hash is None:
             self.avatar_hash = hashlib.md5(
                 self.email.encode('utf-8')).hexdigest()
+        # 用户默认关注自己
         self.followed.append(Follow(followed=self))
 
     @staticmethod
@@ -182,9 +189,10 @@ class User(UserMixin, db.Model):
 
     def generate_reset_token(self, expiration=3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'reset': self.id})
+        return s.dumps({'reset': self.id}).decode('utf-8')
 
     def reset_password(self, token, new_password):
+        """修改密码"""
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
@@ -201,6 +209,7 @@ class User(UserMixin, db.Model):
         return s.dumps({'change_email': self.id, 'new_email': new_email})
 
     def change_email(self, token):
+        """修改邮箱"""
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
@@ -220,10 +229,11 @@ class User(UserMixin, db.Model):
         return True
 
     def can(self, permissions):
-        return self.role is not None and \
-            (self.role.permissions & permissions) == permissions
+        """验证权限"""
+        return self.role is not None and (self.role.permissions & permissions) == permissions
 
     def is_administrator(self):
+        """验证是否是管理员"""
         return self.can(Permission.ADMINISTER)
 
     def ping(self):
@@ -264,27 +274,26 @@ class User(UserMixin, db.Model):
                 db.session.rollback()
 
     def follow(self, user):
+        """关注"""
         if not self.is_following(user):
             f = Follow(follower=self, followed=user)
             db.session.add(f)
 
     def unfollow(self, user):
+        """取消关注"""
         f = self.followed.filter_by(followed_id=user.id).first()
         if f:
             db.session.delete(f)
 
     def is_following(self, user):
-        return self.followed.filter_by(
-            followed_id=user.id).first() is not None
+        return self.followed.filter_by(followed_id=user.id).first() is not None
 
     def is_followed_by(self, user):
-        return self.followers.filter_by(
-            follower_id=user.id).first() is not None
+        return self.followers.filter_by(follower_id=user.id).first() is not None
 
     @property
     def followed_posts(self):
-        return Post.query.join(Follow, Follow.followed_id == Post.author_id) \
-            .filter(Follow.follower_id == self.id)
+        return Post.query.join(Follow, Follow.followed_id == Post.author_id).filter(Follow.follower_id == self.id)
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -299,6 +308,7 @@ class AnonymousUser(AnonymousUserMixin):
 
 
 class Comment(db.Model):
+    """评论表"""
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text)
@@ -310,6 +320,7 @@ class Comment(db.Model):
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
+        """修改评论"""
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'code', 'em', 'i',
                         'strong']
         target.body_html = bleach.linkify(bleach.clean(
