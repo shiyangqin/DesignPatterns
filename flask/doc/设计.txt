@@ -1,0 +1,85 @@
+app
+  - 程序统一入口，只负责权限验证和设置路由，逻辑处理调用do里面的自定义类来完成
+do
+  - 逻辑处理层，通过编写do_base.py中Do的子类并重写process方法来完成，数据库的连接、释放、提交和回滚统一由基类Do完成，
+    子类的process方法只进行逻辑处理，不进行任何commit和rollback的操作
+    调用接口、公告函数或其他工具类时，统一调用utils中的方法，不要直接调用接口或公告函数，方便统一管理接口和公告函数
+doc
+  - 项目文档，依赖库列表
+logs
+  - 程序自动生成的文件夹，日志文件所在目录
+utils
+  - 工具包，统一管理一些经常重复使用的工具代码和接口、公共函数、数据库等
+config.py
+  - 将*.ini配置文件转化为程序可用的配置
+sap.ini
+  - 程序配置文件
+logging_config.py
+  - 日志配置文件，无需修改，直接使用
+run.py
+  - 程序启动文件
+script_*.py
+  - 可能有多个文件，后台常驻进程，可以调用utils，逻辑在文件中直接编写，不要写在do里
+
+备注：
+    文件中存在多个函数，其中一部分是对外开发可以调用的函数，一部分是文件内部函数需要调用的辅助函数时，
+    如果这些辅助函数在其他地方不会用到，则这些函数名应该以"__"开头，这样其他人在调用文件时，就无需考虑那些"__"开头的函数了
+
+开发示例：
+需求：
+    写一个测试接口，参数为{"error":True/False},当参数为True时抛出异常，False时正常返回，请求方式为get和post
+
+第一步：编写自己的Do子类，在do文件夹下创建do_test.py，创建Do_Test，继承Do，然后重写process方法，
+        process方法的返回值有2个：
+            第一个是标识位，返回true/false，返回false时会导致数据库回滚，并将第二个参数作为异常信息打印
+            第二个返回值是返回给界面的json数据,直接返回json格式即可，不要进行dumps
+        do_test.py的内容为：
+# -*- coding: UTF-8 -*-
+import logging
+
+from do_base import Do
+
+LOG = logging.getLogger(__name__)
+
+
+class Do_Test(Do):
+    def process(self, body_dict):
+        db = self._db
+        LOG.debug('>>>>>>开始进行逻辑处理>>>>>>')
+        error = body_dict['error']
+        msg = '测试'
+        if error:
+            sql = "select * from t_test;"
+            msg = db.execute(sql)
+            raise Exception('测试抛出异常')
+        LOG.debug('>>>>>>逻辑处理完成>>>>>>')
+        return True, msg
+
+
+第二步：编写自己的接口入口，创建第一步中编写的子类对象，调用与请求方式对应的get和post方法，
+        参数为request和是否需要连接数据库的bool值，这里我需要连接则传True，由于逻辑处理完全相同，所以这里只需要编写一个Do的子类就可以了
+        在app文件夹下的某个py文件中编写，编写后完整的py文件内容为：
+# -*- coding: UTF-8 -*-
+import logging
+
+from flask import Blueprint, request
+
+from do.do_test import Do_Test
+
+LOG = logging.getLogger(__name__)
+
+app = Blueprint(__name__ + "_app", __name__)
+
+
+@app.route('/test/get', methods=['GET'])
+def test_get():
+    """测试"""
+    LOG.debug("================server Test get================")
+    return Do_Test().get(request, True)
+
+
+@app.route('/test/post', methods=['POST'])
+def test_post():
+    """测试"""
+    LOG.debug("================server Test post================")
+    return Do_Test().post(request, True)
