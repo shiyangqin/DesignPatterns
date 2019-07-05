@@ -1,9 +1,0 @@
-from kafka import KafkaConsumer
-
-consumer = KafkaConsumer('test-qsy', bootstrap_servers='10.255.175.80:9094')
-def test():
-    for msg in consumer:
-        print(msg)
-
-if __name__ == '__main__':
-    test()
