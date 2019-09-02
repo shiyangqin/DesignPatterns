@@ -6,20 +6,22 @@ import logging.handlers
 
 import os
 
-LEVELS = {'NOSET': logging.NOTSET,
-          'DEBUG': logging.DEBUG,
-          'INFO': logging.INFO,
-          'WARNING': logging.WARNING,
-          'ERROR': logging.ERROR,
-          'CRITICAL': logging.CRITICAL}
+LEVELS = {
+    'NOSET': logging.NOTSET,
+    'DEBUG': logging.DEBUG,
+    'INFO': logging.INFO,
+    'WARNING': logging.WARNING,
+    'ERROR': logging.ERROR,
+    'CRITICAL': logging.CRITICAL
+}
 
 
-def config_logging(file_name = "log.txt", log_level = "NOSET"):
-    '''
+def config_logging(file_name="log.txt", log_level="NOSET"):
+    """
     @summary: config logging to write logs to local file
     @param file_name: name of log file
     @param log_level: log level
-    '''
+    """
     logs_dir = os.path.join(os.path.dirname(__file__), "logs")
     if os.path.exists(logs_dir) and os.path.isdir(logs_dir):
         pass
@@ -31,9 +33,8 @@ def config_logging(file_name = "log.txt", log_level = "NOSET"):
 
     file_name = os.path.join(logs_dir, file_name)
     # define a rotating file handler
-    rotatingFileHandler = logging.handlers.RotatingFileHandler(filename =file_name,
-                                                      maxBytes = 1024 * 1024 * 50,
-                                                      backupCount = 5)
+    rotating_file_handler = \
+        logging.handlers.RotatingFileHandler(filename=file_name, maxBytes=1024 * 1024 * 50, backupCount=5)
     formatter = logging.Formatter("%(asctime)s %(name)-12s %(process)d %(levelname)-8s %(lineno)-6s %(message)s")
     '''
     format: 指定输出的格式和内容，format可以输出很多有用信息，如上例所示:
@@ -49,8 +50,8 @@ def config_logging(file_name = "log.txt", log_level = "NOSET"):
      %(process)d: 打印进程ID
      %(message)s: 打印日志信息
     '''
-    rotatingFileHandler.setFormatter(formatter)
-    logging.getLogger("").addHandler(rotatingFileHandler)
+    rotating_file_handler.setFormatter(formatter)
+    logging.getLogger("").addHandler(rotating_file_handler)
 
     # define a handler whitch writes messages to sys
     console = logging.StreamHandler()

@@ -9,5 +9,5 @@ app = Flask(__name__)
 app.register_blueprint(app_test)
 
 if __name__ == '__main__':
-    logging_config.config_logging("test_log.txt", Log.log_level)
+    logging_config.config_logging("log.txt", Log.log_level)
     app.run(host='0.0.0.0', port=9002, debug=True)

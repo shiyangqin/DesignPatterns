@@ -7,15 +7,15 @@ from config import PG
 LOG = logging.getLogger(__name__)
 
 
-class DB(object):
-    """数据库封装类"""
+class PostgreSQL(object):
+    """pg数据库封装类"""
     __conn = None
     __cursor = None
     __commit = False
 
     def __init__(self):
         """创建连接"""
-        LOG.debug(">>>>>>开始进行数据库连接>>>>>>")
+        LOG.debug(">>>>>>PostgreSQL start connect>>>>>>")
         self.__conn = psycopg2.connect(
             host=PG.pg_host,
             port=PG.pg_port,
@@ -23,51 +23,45 @@ class DB(object):
             user=PG.pg_user,
             password=PG.pg_pwd
         )
-        if not self.__conn:
-            raise Exception('数据库连接失败')
         self.__cursor = self.__conn.cursor()
-        LOG.debug(">>>>>>数据库连接成功>>>>>>")
+        LOG.debug(">>>>>>PostgreSQL connect success>>>>>>")
 
     def __del__(self):
-        """关闭连接"""
+        """关闭数据库连接"""
         if self.__cursor:
             self.__cursor.close()
             self.__cursor = None
         if self.__conn:
             self.__conn.close()
             self.__conn = None
-        LOG.debug(">>>>>>关闭数据库连接>>>>>>")
+        LOG.debug(">>>>>>db connect shutdown>>>>>>")
 
-    def execute(self, sql, param_dict=(), show_sql=True):
+    def execute(self, sql, param_dict=(), show_sql=False):
         """执行sql语句，打印日志，设置提交标识，返回数据"""
-        res = self.__cursor.execute(sql, param_dict)
+        self.__cursor.execute(sql, param_dict)
         if show_sql:
             LOG.debug(">>>>>>sql>>>>>>: %s" % (self.__cursor.mogrify(sql, param_dict)))
         if sql.lower().startswith(('update', 'insert', 'delete')):
             self.__commit = True
-        if sql.lower().startswith('select'):
+        if sql.lower().startswith('select') or 'returning' in sql.lower():
             return self.__cursor.fetchall()
-        if sql.lower().find('returning'):
-            return res
 
     def rollback(self):
         """数据库回滚"""
         if self.__commit:
             self.__conn.rollback()
+            self.__commit = False
 
     def commit(self):
         """数据库提交"""
         if self.__commit:
             self.__conn.commit()
+            self.__commit = False
 
-    def set_commit(self):
+    def set_commit(self, commit=True):
         """设置数据库提交标识"""
-        self.__commit = True
+        self.__commit = commit
 
     def get_conn(self):
         """获取conn对象"""
         return self.__conn
-
-    def get_cursor(self):
-        """获取cursor对象"""
-        return self.__cursor
