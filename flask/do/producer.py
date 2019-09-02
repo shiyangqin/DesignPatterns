@@ -37,7 +37,7 @@ class Producer(object):
         :param request: url请求信息
         :param msg_type: msg返回类型，
              False:将process返回的信息装入result_msg['data']，用于返回json，
-             True：将process返回的信息直接返回，用于Response
+             True：将process返回的信息直接返回，用于返回Response
         :return:json/Response
         """
         result_msg = {}
@@ -70,9 +70,22 @@ class Producer(object):
         return self.__pg
 
     def process(self, request):
+        """
+        在字类中重写process来处理业务
+        返回result_flag（标识位：false/true）, result_msg(返回信息，json/Response)
+        # db使用实例
         db = self.get_pg()
-        result_flag = True  # 函数返回标识，返回false时按异常处理，result_msg为异常信息
-        result_msg = {  # 函数返回内容,json格式，不要进行dumps，不需要拼装message和data
-            "test": "ok"
+        # 第一种
+        sql = "sql%s" % "sql"
+        res = db.execute(sql)
+        # 第二种
+        sql = "sql%(param)s"
+        param_dict = {
+            "param": ""
         }
+        res = db.execute(sql, param_dict)
+        """
+        result_flag = True
+        result_msg = "ok"
         return result_flag, result_msg
+

@@ -10,8 +10,8 @@ LOG = logging.getLogger(__name__)
 app = Blueprint(__name__ + "_app", __name__)
 
 
-@app.route('/test/get', methods=['GET'])
-def test_get():
+@app.route('/test', methods=['GET'])
+def test():
     """测试"""
-    LOG.debug("================server Test get================")
+    LOG.debug("================server test================")
     return Test().do(request)

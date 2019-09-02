@@ -8,10 +8,7 @@ LOG = logging.getLogger(__name__)
 
 class Test(Producer):
     def process(self, body_dict):
-        """
-        在字类中重写process来处理业务
-        返回result_flag（标识位：false/true）, result_msg(返回信息，json/Response)
-        """
+        """字类重写process实现业务"""
         result_flag = True
         result_msg = "ok"
         return result_flag, result_msg
