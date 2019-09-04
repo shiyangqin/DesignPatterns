@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-import ConfigParser
+import configparser
 import os
 
 
@@ -9,7 +9,7 @@ def load_config(path):
     @param: path,指定配置文件路径
     @return: dict, 详细配置
     """
-    cf = ConfigParser.ConfigParser()
+    cf = configparser.ConfigParser()
     cf.read(path)
     sets = cf.sections()
     conf = {}

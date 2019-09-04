@@ -7,7 +7,7 @@ LOG = logging.getLogger(__name__)
 
 
 class Test(Producer):
-    def process(self, body_dict):
+    def process(self, request):
         """字类重写process实现业务"""
         result_flag = True
         result_msg = "ok"
