@@ -2,4 +2,4 @@
 
 - [flask](flask/doc/设计.txt)
 
-- [data structures](data structures/doc/data structures.txt)
+- [data_structures](data_structures/doc/data_structures.txt)
