@@ -12,12 +12,12 @@ def load_config(path):
     cf = configparser.ConfigParser()
     cf.read(path)
     sets = cf.sections()
-    conf = {}
+    config = {}
     for key in sets:
-        conf[key] = {}
+        config[key] = {}
         for val in cf.items(key):
-            conf[key][val[0]] = val[1]
-    return conf
+            config[key][val[0]] = val[1]
+    return config
 
 
 # 获取sap.ini所在路径（当前文件所在路径）
@@ -27,6 +27,7 @@ conf = load_config(filepath)
 
 # 日志配置
 class Log(object):
+    log_name = conf.get('Log').get('log_name')
     log_level = conf.get('Log').get('log_level')
 
 

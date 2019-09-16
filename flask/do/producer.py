@@ -18,8 +18,6 @@ class DateEncoder(json.JSONEncoder):
             return obj.strftime('%Y-%m-%d %H:%M:%S')
         elif isinstance(obj, date):
             return obj.strftime('%Y-%m-%d')
-        elif isinstance(obj, type(None)):
-            return ''
         else:
             return json.JSONEncoder.default(self, obj)
 
@@ -27,18 +25,17 @@ class DateEncoder(json.JSONEncoder):
 class Producer(object):
     """
     逻辑处理基类：
-        do：统一进行异常处理和数据库操作的连接，提交，异常时回滚，关闭，调用process逻辑处理函数
-        process：逻辑处理，不需要进行异常处理，创建子类重写，数据库通过self.get_pg()获取
+        do：统一进行异常处理和数据库的连接、提交、异常回滚、关闭等操作，调用process逻辑处理函数
+        process：只负责逻辑处理，创建子类重写，数据库通过self.get_pg()获取
     """
     __pg = None
 
-    def do(self, request, msg_type=False):
+    def do(self, request, process_type='0'):
         """
-        :param request: url请求信息
-        :param msg_type: msg返回类型，
-             False:将process返回的信息装入result_msg['data']，用于返回json，
-             True：将process返回的信息直接返回，用于返回Response
-        :return:json/Response
+        request: url请求信息
+        msg_type: msg返回类型
+             '0': 将process返回的信息装入result_msg['data']，用于返回json，
+             '1': 将process返回的信息直接返回，用于返回非json
         """
         result_msg = {}
         try:
@@ -46,12 +43,12 @@ class Producer(object):
             if flag:
                 if self.__pg:
                     self.__pg.commit()
-                if msg_type:
-                    result_msg = msg
-                else:
+                if process_type == '0':
                     result_msg['message'] = 'ok'
                     result_msg['data'] = msg
                     result_msg = json.dumps(result_msg, cls=DateEncoder)
+                if process_type == '1':
+                    result_msg = msg
             else:
                 raise Exception(msg)
         except Exception as e:
@@ -72,18 +69,9 @@ class Producer(object):
     def process(self, request):
         """
         在字类中重写process来处理业务
-        返回result_flag（标识位：false/true）, result_msg(返回信息，json/Response)
-        # db使用实例
-        db = self.get_pg()
-        # 第一种
-        sql = "sql%s" % "sql"
-        res = db.execute(sql)
-        # 第二种
-        sql = "sql%(param)s"
-        param_dict = {
-            "param": ""
-        }
-        res = db.execute(sql, param_dict)
+        返回:
+            result_flag（标识位：false/true）
+            result_msg(返回信息，json/Response)
         """
         result_flag = True
         result_msg = "ok"
