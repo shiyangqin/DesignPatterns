@@ -3,6 +3,7 @@ import json
 import logging
 from datetime import date
 from datetime import datetime
+from flask import current_app
 
 from utils.PostgreSQL import PostgreSQL
 
@@ -63,7 +64,7 @@ class Producer(object):
 
     def get_pg(self):
         if not self.__pg:
-            self.__pg = PostgreSQL()
+            self.__pg = PostgreSQL(current_app.pool.connection())
         return self.__pg
 
     def process(self, request):

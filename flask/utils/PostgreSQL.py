@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import psycopg2
 import logging
+from DBUtils.PooledDB import PooledDB
 
 from config import PG
 
@@ -13,18 +14,22 @@ class PostgreSQL(object):
     __cursor = None
     __commit = False
 
-    def __init__(self):
+    def __init__(self, conn=None):
         """创建连接"""
-        LOG.debug(">>>>>>PostgreSQL start connect>>>>>>")
-        self.__conn = psycopg2.connect(
-            host=PG.pg_host,
-            port=PG.pg_port,
-            database=PG.pg_name,
-            user=PG.pg_user,
-            password=PG.pg_pwd
-        )
+        if conn:
+            LOG.debug(">>>>>>PostgreSQL set conn>>>>>>")
+            self.__conn = conn
+        else:
+            LOG.debug(">>>>>>PostgreSQL start connect>>>>>>")
+            self.__conn = psycopg2.connect(
+                host=PG.pg_host,
+                port=PG.pg_port,
+                database=PG.pg_name,
+                user=PG.pg_user,
+                password=PG.pg_pwd
+            )
+            LOG.debug(">>>>>>PostgreSQL connect success>>>>>>")
         self.__cursor = self.__conn.cursor()
-        LOG.debug(">>>>>>PostgreSQL connect success>>>>>>")
 
     def __del__(self):
         """关闭数据库连接"""
@@ -65,3 +70,23 @@ class PostgreSQL(object):
     def get_conn(self):
         """获取conn对象"""
         return self.__conn
+
+
+class PG_Pool(object):
+    __pool = None
+    def __init__(self):
+        LOG.debug(">>>>>>pg_pool start create>>>>>>")
+        self.__pool = PooledDB(
+            psycopg2,
+            mincached=5,
+            blocking=True,
+            host=PG.pg_host,
+            port=PG.pg_port,
+            database=PG.pg_name,
+            user=PG.pg_user,
+            password=PG.pg_pwd
+        )
+        LOG.debug(">>>>>>pg_pool create success>>>>>>")
+
+    def get_pool(self):
+        return self.__pool
