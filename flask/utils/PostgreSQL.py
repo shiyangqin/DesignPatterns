@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import psycopg2
+from psycopg2.extras import RealDictCursor
 import logging
 from DBUtils.PooledDB import PooledDB
 
@@ -14,7 +15,7 @@ class PostgreSQL(object):
     __cursor = None
     __commit = False
 
-    def __init__(self, conn=None):
+    def __init__(self, conn=None, dict_cursor=False):
         """创建连接"""
         if conn:
             LOG.debug(">>>>>>PostgreSQL set conn>>>>>>")
@@ -29,7 +30,10 @@ class PostgreSQL(object):
                 password=PG.pg_pwd
             )
             LOG.debug(">>>>>>PostgreSQL connect success>>>>>>")
-        self.__cursor = self.__conn.cursor()
+        if dict_cursor:
+            self.__cursor = self.__conn.cursor(cursor_factory=RealDictCursor)
+        else:
+            self.__cursor = self.__conn.cursor()
 
     def __del__(self):
         """关闭数据库连接"""
