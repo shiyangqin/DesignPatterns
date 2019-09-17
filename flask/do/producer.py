@@ -64,7 +64,7 @@ class Producer(object):
 
     def get_pg(self):
         if not self.__pg:
-            self.__pg = PostgreSQL(current_app.pool.connection())
+            self.__pg = PostgreSQL(conn=current_app.pool.connection(),dict_cursor=True)
         return self.__pg
 
     def process(self, request):
