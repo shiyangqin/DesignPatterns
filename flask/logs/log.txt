@@ -4,4 +4,3 @@
 2019-09-04 09:59:54,596 werkzeug     63892 INFO     122     * Running on http://0.0.0.0:9002/ (Press CTRL+C to quit)
 2019-09-04 10:00:28,903 app.app_test 63892 DEBUG    16     ================server test================
 2019-09-04 10:00:28,906 werkzeug     63892 INFO     122    127.0.0.1 - - [04/Sep/2019 10:00:28] "GET /test HTTP/1.1" 200 -
-2019-09-04 10:00:29,019 werkzeug     63892 INFO     122    127.0.0.1 - - [04/Sep/2019 10:00:29] "GET /favicon.ico HTTP/1.1" 404 -
