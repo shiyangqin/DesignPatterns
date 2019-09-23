@@ -67,9 +67,9 @@ class Producer(object):
             self.__redis.close()
         return result_msg
 
-    def get_pg(self):
+    def get_pg(self, conn=None, dict_cursor=True):
         if not self.__pg:
-            self.__pg = PostgreSQL()
+            self.__pg = PostgreSQL(conn=conn, dict_cursor=dict_cursor)
         return self.__pg
 
     def get_redis(self,host=REDIS.redis_host, port=REDIS.redis_port, db=REDIS.redis_db, password=REDIS.redis_pwd):
@@ -88,4 +88,3 @@ class Producer(object):
         result_flag = True
         result_msg = "ok"
         return result_flag, result_msg
-
