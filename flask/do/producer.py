@@ -28,7 +28,7 @@ class Producer(object):
     """
     逻辑处理基类：
         do：统一进行异常处理和数据库的连接、提交、异常回滚、关闭等操作，调用process逻辑处理函数
-        process：只负责逻辑处理，创建子类重写，数据库通过self.get_pg()获取
+        process：只负责逻辑处理，创建子类重写，数据库通过self.get_pg()和self.get_redis()获取
     """
     __pg = None
     __redis = None
@@ -68,11 +68,13 @@ class Producer(object):
         return result_msg
 
     def get_pg(self, conn=None, dict_cursor=True):
+        """获取pg数据库对象"""
         if not self.__pg:
             self.__pg = PostgreSQL(conn=conn, dict_cursor=dict_cursor)
         return self.__pg
 
     def get_redis(self,host=REDIS.redis_host, port=REDIS.redis_port, db=REDIS.redis_db, password=REDIS.redis_pwd):
+        """获取redis连接"""
         if not self.__redis:
             LOG.debug('>>>>>>redis get conn>>>>>>')
             self.__redis = redis.Redis(host, port, db, password)
