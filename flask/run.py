@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, current_app
+from flask import Flask
 
 import logging_config
 from app.app_test import app as app_test
 from config import Log
-from utils.PostgreSQL import PG_Pool
 
 app = Flask(__name__)
 app.register_blueprint(app_test)
-
-
-pg_pool = PG_Pool()
-app.app_context().push()
-current_app.pool = pg_pool.get_pool()
 
 
 if __name__ == '__main__':

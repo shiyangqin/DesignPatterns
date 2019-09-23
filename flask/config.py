@@ -31,10 +31,18 @@ class Log(object):
     log_level = conf.get('Log').get('log_level')
 
 
-# 数据库配置
+# PG数据库配置
 class PG(object):
     pg_host = conf.get('PG').get('pg_host')
     pg_port = conf.get('PG').get('pg_port')
     pg_user = conf.get('PG').get('pg_user')
     pg_pwd = conf.get('PG').get('pg_pwd')
     pg_name = conf.get('PG').get('pg_name')
+
+
+# redis数据库配置
+class REDIS(object):
+    redis_host = conf.get('REDIS').get('redis_host')
+    redis_port = conf.get('REDIS').get('redis_port')
+    redis_pwd = conf.get('REDIS').get('redis_pwd')
+    redis_db = conf.get('REDIS').get('redis_db')

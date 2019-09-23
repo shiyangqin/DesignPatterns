@@ -9,27 +9,43 @@ from config import PG
 LOG = logging.getLogger(__name__)
 
 
+class PG_Pool(object):
+    __pool = None
+    def __init__(self):
+        LOG.debug(">>>>>>pg_pool start create>>>>>>")
+        self.__pool = PooledDB(
+            psycopg2,
+            mincached=5,
+            blocking=True,
+            host=PG.pg_host,
+            port=PG.pg_port,
+            database=PG.pg_name,
+            user=PG.pg_user,
+            password=PG.pg_pwd
+        )
+        LOG.debug(">>>>>>pg_pool create success>>>>>>")
+
+    def get_pool(self):
+        return self.__pool
+
+
+pg_pool = PG_Pool()
+
+
 class PostgreSQL(object):
     """pg数据库封装类"""
     __conn = None
     __cursor = None
     __commit = False
 
-    def __init__(self, conn=None, dict_cursor=False):
+    def __init__(self, conn=None, dict_cursor=True):
         """创建连接"""
         if conn:
             LOG.debug(">>>>>>PostgreSQL set conn>>>>>>")
             self.__conn = conn
         else:
-            LOG.debug(">>>>>>PostgreSQL start connect>>>>>>")
-            self.__conn = psycopg2.connect(
-                host=PG.pg_host,
-                port=PG.pg_port,
-                database=PG.pg_name,
-                user=PG.pg_user,
-                password=PG.pg_pwd
-            )
-            LOG.debug(">>>>>>PostgreSQL connect success>>>>>>")
+            LOG.debug(">>>>>>PostgreSQL get conn from pg_pool>>>>>>")
+            self.__conn = pg_pool.get_pool().connection()
         if dict_cursor:
             self.__cursor = self.__conn.cursor(cursor_factory=RealDictCursor)
         else:
@@ -43,7 +59,7 @@ class PostgreSQL(object):
         if self.__conn:
             self.__conn.close()
             self.__conn = None
-        LOG.debug(">>>>>>db connect shutdown>>>>>>")
+        LOG.debug(">>>>>>PostgreSQL connect close>>>>>>")
 
     def execute(self, sql, param_dict=(), show_sql=False):
         """执行sql语句，打印日志，设置提交标识，返回数据"""
@@ -74,23 +90,3 @@ class PostgreSQL(object):
     def get_conn(self):
         """获取conn对象"""
         return self.__conn
-
-
-class PG_Pool(object):
-    __pool = None
-    def __init__(self):
-        LOG.debug(">>>>>>pg_pool start create>>>>>>")
-        self.__pool = PooledDB(
-            psycopg2,
-            mincached=5,
-            blocking=True,
-            host=PG.pg_host,
-            port=PG.pg_port,
-            database=PG.pg_name,
-            user=PG.pg_user,
-            password=PG.pg_pwd
-        )
-        LOG.debug(">>>>>>pg_pool create success>>>>>>")
-
-    def get_pool(self):
-        return self.__pool

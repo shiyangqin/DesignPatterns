@@ -3,7 +3,7 @@ import logging
 
 from flask import Blueprint, request
 
-from do.producer import Producer
+from do.test import Test
 
 LOG = logging.getLogger(__name__)
 
@@ -14,4 +14,4 @@ app = Blueprint(__name__ + "_app", __name__)
 def test():
     """测试"""
     LOG.debug("================server test================")
-    return Producer().do(request)
+    return Test().do(request)

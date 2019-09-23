@@ -3,9 +3,10 @@ import json
 import logging
 from datetime import date
 from datetime import datetime
-from flask import current_app
+import redis
 
 from utils.PostgreSQL import PostgreSQL
+from config import REDIS
 
 LOG = logging.getLogger(__name__)
 
@@ -30,6 +31,7 @@ class Producer(object):
         process：只负责逻辑处理，创建子类重写，数据库通过self.get_pg()获取
     """
     __pg = None
+    __redis = None
 
     def do(self, request, process_type='0'):
         """
@@ -60,12 +62,21 @@ class Producer(object):
             result_msg = json.dumps(result_msg, cls=DateEncoder)
         if self.__pg:
             del self.__pg
+        if self.__redis:
+            LOG.debug('>>>>>>redis connect close>>>>>>')
+            self.__redis.close()
         return result_msg
 
     def get_pg(self):
         if not self.__pg:
-            self.__pg = PostgreSQL(conn=current_app.pool.connection(),dict_cursor=True)
+            self.__pg = PostgreSQL()
         return self.__pg
+
+    def get_redis(self,host=REDIS.redis_host, port=REDIS.redis_port, db=REDIS.redis_db, password=REDIS.redis_pwd):
+        if not self.__redis:
+            LOG.debug('>>>>>>redis get conn>>>>>>')
+            self.__redis = redis.Redis(host, port, db, password)
+        return self.__redis
 
     def process(self, request):
         """
