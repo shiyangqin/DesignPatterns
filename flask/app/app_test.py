@@ -3,7 +3,7 @@ import logging
 
 from flask import Blueprint, request
 
-from do.test import Test
+from job.test import Test
 
 LOG = logging.getLogger(__name__)
 

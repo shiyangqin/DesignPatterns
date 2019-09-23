@@ -27,7 +27,7 @@ class DateEncoder(json.JSONEncoder):
 class Producer(object):
     """
     逻辑处理基类：
-        do：统一进行异常处理和数据库的连接、提交、异常回滚、关闭等操作，调用process逻辑处理函数
+        job：统一进行异常处理和数据库的连接、提交、异常回滚、关闭等操作，调用process逻辑处理函数
         process：只负责逻辑处理，创建子类重写，数据库通过self.get_pg()和self.get_redis()获取
     """
     __pg = None

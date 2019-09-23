@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import logging
 
-from do.producer import Producer
+from job.producer import Producer
 
 LOG = logging.getLogger(__name__)
 
