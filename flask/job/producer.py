@@ -5,6 +5,7 @@ from datetime import date
 from datetime import datetime
 import redis
 
+from flask import current_app
 from utils.PostgreSQL import PostgreSQL
 from config import REDIS
 
@@ -63,14 +64,14 @@ class Producer(object):
         if self.__pg:
             del self.__pg
         if self.__redis:
-            LOG.debug('>>>>>>redis connect close>>>>>>')
+            LOG.debug('>>>>>>redis conn close>>>>>>')
             self.__redis.close()
         return result_msg
 
     def get_pg(self, conn=None, dict_cursor=True):
         """获取pg数据库对象"""
         if not self.__pg:
-            self.__pg = PostgreSQL(conn=conn, dict_cursor=dict_cursor)
+            self.__pg = PostgreSQL(conn=conn if conn else current_app.pool.connection(), dict_cursor=dict_cursor)
         return self.__pg
 
     def get_redis(self,host=REDIS.redis_host, port=REDIS.redis_port, db=REDIS.redis_db, password=REDIS.redis_pwd):

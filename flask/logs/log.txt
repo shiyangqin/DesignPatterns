@@ -1,11 +1,4 @@
-2019-09-23 17:50:52,041 werkzeug     243416 INFO     122     * Restarting with stat
-2019-09-23 17:50:53,792 werkzeug     143352 WARNING  122     * Debugger is active!
-2019-09-23 17:50:53,805 werkzeug     143352 INFO     122     * Debugger PIN: 930-697-870
-2019-09-23 17:50:53,882 werkzeug     143352 INFO     122     * Running on http://0.0.0.0:9002/ (Press CTRL+C to quit)
-2019-09-23 17:50:57,021 app.app_test 143352 DEBUG    16     ================server test================
-2019-09-23 17:50:57,023 utils.PostgreSQL 143352 DEBUG    47     >>>>>>PostgreSQL get conn from pg_pool>>>>>>
-2019-09-23 17:50:57,024 do.producer  143352 DEBUG    77     >>>>>>redis get conn>>>>>>
-2019-09-23 17:50:57,025 do.test      143352 DEBUG    16     this is Test
-2019-09-23 17:50:57,027 utils.PostgreSQL 143352 DEBUG    62     >>>>>>PostgreSQL connect close>>>>>>
-2019-09-23 17:50:57,027 do.producer  143352 DEBUG    66     >>>>>>redis connect close>>>>>>
-2019-09-23 17:50:57,030 werkzeug     143352 INFO     122    127.0.0.1 - - [23/Sep/2019 17:50:57] "GET /test HTTP/1.1" 200 -
+2019-09-23 21:49:46,216 werkzeug     246632 INFO     122     * Restarting with stat
+2019-09-23 21:49:47,873 werkzeug     244792 WARNING  122     * Debugger is active!
+2019-09-23 21:49:47,884 werkzeug     244792 INFO     122     * Debugger PIN: 930-697-870
+2019-09-23 21:49:47,908 werkzeug     244792 INFO     122     * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)

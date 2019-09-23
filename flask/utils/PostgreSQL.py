@@ -1,8 +1,9 @@
 # -*- coding: UTF-8 -*-
-import psycopg2
-from psycopg2.extras import RealDictCursor
 import logging
+
+import psycopg2
 from DBUtils.PooledDB import PooledDB
+from psycopg2.extras import RealDictCursor
 
 from config import PG
 
@@ -10,7 +11,9 @@ LOG = logging.getLogger(__name__)
 
 
 class PG_Pool(object):
+    """pg数据库连接池"""
     __pool = None
+
     def __init__(self):
         LOG.debug(">>>>>>pg_pool start create>>>>>>")
         self.__pool = PooledDB(
@@ -29,9 +32,6 @@ class PG_Pool(object):
         return self.__pool
 
 
-pg_pool = PG_Pool()
-
-
 class PostgreSQL(object):
     """pg数据库封装类"""
     __conn = None
@@ -44,8 +44,14 @@ class PostgreSQL(object):
             LOG.debug(">>>>>>PostgreSQL set conn>>>>>>")
             self.__conn = conn
         else:
-            LOG.debug(">>>>>>PostgreSQL get conn from pg_pool>>>>>>")
-            self.__conn = pg_pool.get_pool().connection()
+            LOG.debug(">>>>>>PostgreSQL get conn>>>>>>")
+            self.__conn = psycopg2.connect(
+                host=PG.pg_host,
+                port=PG.pg_port,
+                database=PG.pg_name,
+                user=PG.pg_user,
+                password=PG.pg_pwd
+            )
         if dict_cursor:
             self.__cursor = self.__conn.cursor(cursor_factory=RealDictCursor)
         else:
@@ -59,7 +65,7 @@ class PostgreSQL(object):
         if self.__conn:
             self.__conn.close()
             self.__conn = None
-        LOG.debug(">>>>>>PostgreSQL connect close>>>>>>")
+        LOG.debug(">>>>>>PostgreSQL conn close>>>>>>")
 
     def execute(self, sql, param_dict=(), show_sql=False):
         """执行sql语句，打印日志，设置提交标识，返回数据"""
@@ -74,12 +80,14 @@ class PostgreSQL(object):
     def rollback(self):
         """数据库回滚"""
         if self.__commit:
+            LOG.debug(">>>>>>PostgreSQL rollback>>>>>>")
             self.__conn.rollback()
             self.__commit = False
 
     def commit(self):
         """数据库提交"""
         if self.__commit:
+            LOG.debug(">>>>>>PostgreSQL commit>>>>>>")
             self.__conn.commit()
             self.__commit = False
 
