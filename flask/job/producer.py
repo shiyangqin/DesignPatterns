@@ -3,11 +3,12 @@ import json
 import logging
 from datetime import date
 from datetime import datetime
-import redis
 
+import redis
 from flask import current_app
-from utils.PostgreSQL import PostgreSQL
+
 from config import REDIS
+from utils.PostgreSQL import PostgreSQL
 
 LOG = logging.getLogger(__name__)
 
