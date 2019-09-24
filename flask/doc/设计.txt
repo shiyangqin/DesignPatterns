@@ -3,7 +3,7 @@ app
 doc
   - 项目文档，依赖库列表
 job
-  - 逻辑处理层，通过编写producer.py中Producer的子类并重写process方法来完成，数据库的连接、释放、提交和回滚统一由基类Producer完成，
+  - 逻辑处理层，通过编写init.py中Producer的子类并重写process方法来完成，数据库的连接、释放、提交和回滚统一由基类Producer完成，
     子类的process方法只进行逻辑处理，不进行任何commit和rollback的操作
     调用接口、项目外的其他包或其他工具类时，统一调用utils中的方法，方便统一管理接口和公告函数
 logs

@@ -1,13 +1,12 @@
 # -*- coding: UTF-8 -*-
 import logging
 
-from flask import Blueprint, request
+from flask import request
 
 from job.test import Test
+from . import main_app as app
 
 LOG = logging.getLogger(__name__)
-
-app = Blueprint(__name__ + "_app", __name__)
 
 
 @app.route('/test', methods=['GET'])

@@ -1,4 +1,11 @@
-2019-09-23 21:49:46,216 werkzeug     246632 INFO     122     * Restarting with stat
-2019-09-23 21:49:47,873 werkzeug     244792 WARNING  122     * Debugger is active!
-2019-09-23 21:49:47,884 werkzeug     244792 INFO     122     * Debugger PIN: 930-697-870
-2019-09-23 21:49:47,908 werkzeug     244792 INFO     122     * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+2019-09-24 10:50:53,541 werkzeug     247484 INFO     122     * Restarting with stat
+2019-09-24 10:50:55,258 werkzeug     136868 WARNING  122     * Debugger is active!
+2019-09-24 10:50:55,271 werkzeug     136868 INFO     122     * Debugger PIN: 930-697-870
+2019-09-24 10:50:55,296 werkzeug     136868 INFO     122     * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+2019-09-24 10:50:57,861 App.app_test 136868 DEBUG    15     ================server test================
+2019-09-24 10:50:57,863 utils.PostgreSQL 136868 DEBUG    44     >>>>>>PostgreSQL set conn>>>>>>
+2019-09-24 10:50:57,864 job          136868 DEBUG    81     >>>>>>redis get conn>>>>>>
+2019-09-24 10:50:57,866 job.test     136868 DEBUG    16     this is Test
+2019-09-24 10:50:57,868 utils.PostgreSQL 136868 DEBUG    68     >>>>>>PostgreSQL conn close>>>>>>
+2019-09-24 10:50:57,870 job          136868 DEBUG    68     >>>>>>redis conn close>>>>>>
+2019-09-24 10:50:57,872 werkzeug     136868 INFO     122    127.0.0.1 - - [24/Sep/2019 10:50:57] "GET /admin/test HTTP/1.1" 200 -

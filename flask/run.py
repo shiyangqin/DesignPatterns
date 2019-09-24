@@ -2,12 +2,12 @@
 from flask import Flask, current_app
 
 import logging_config
-from app.app_test import app as app_test
+from App import main_app
 from config import Log
 from utils.PostgreSQL import PG_Pool
 
 app = Flask(__name__)
-app.register_blueprint(app_test)
+app.register_blueprint(main_app,url_prefix='/admin')
 
 pg_link = PG_Pool()
 app.app_context().push()
