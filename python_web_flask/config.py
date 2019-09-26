@@ -26,9 +26,9 @@ conf = load_config(filepath)
 
 
 # 日志配置
-class Log(object):
-    log_name = conf.get('Log').get('log_name')
-    log_level = conf.get('Log').get('log_level')
+class LOG(object):
+    log_name = conf.get('LOG').get('log_name')
+    log_level = conf.get('LOG').get('log_level')
 
 
 # PG数据库配置

@@ -35,7 +35,7 @@ class Producer(object):
     __pg = None
     __redis = None
 
-    def do(self, request, process_type='0'):
+    def do(self, request, process_type=0):
         """
         request: url请求信息
         msg_type: msg返回类型
@@ -48,11 +48,11 @@ class Producer(object):
             if flag:
                 if self.__pg:
                     self.__pg.commit()
-                if process_type == '0':
+                if process_type == 0:
                     result_msg['message'] = 'ok'
                     result_msg['data'] = msg
                     result_msg = json.dumps(result_msg, cls=DateEncoder)
-                if process_type == '1':
+                if process_type == 1:
                     result_msg = msg
             else:
                 raise Exception(msg)
@@ -64,9 +64,11 @@ class Producer(object):
             result_msg = json.dumps(result_msg, cls=DateEncoder)
         if self.__pg:
             del self.__pg
+            self.__pg = None
         if self.__redis:
             LOG.debug('>>>>>>redis conn close>>>>>>')
             self.__redis.close()
+            self.__redis = None
         return result_msg
 
     def get_pg(self, conn=None, dict_cursor=True):
