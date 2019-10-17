@@ -1,3 +1,3 @@
 ## Qinsy
 
-- [flask](flask/doc/设计.txt)
+- [python_web_flask](python_web_flask/doc/设计.txt)
