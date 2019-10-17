@@ -29,18 +29,21 @@ class DateEncoder(json.JSONEncoder):
 class Producer(object):
     """
     逻辑处理基类：
-        job：统一进行异常处理和数据库的连接、提交、异常回滚、关闭等操作，调用process逻辑处理函数
+        do：统一进行异常处理和数据库的连接、提交、异常回滚、关闭等操作，调用process逻辑处理函数
         process：只负责逻辑处理，创建子类重写，数据库通过self.get_pg()和self.get_redis()获取
+        __pg：pg对象
+        __redis：redis连接
+        __process_type：process函数返回值类别
+                        0-默认值，将process返回的msg作为json处理，用于大部分业务
+                        1-将process返回的msg直接返回给前端，用于下载等业务
     """
     __pg = None
     __redis = None
+    __process_type = 0
 
-    def do(self, request, process_type=0):
+    def do(self, request):
         """
         request: url请求信息
-        msg_type: msg返回类型
-             '0': 将process返回的信息装入result_msg['data']，用于返回json，
-             '1': 将process返回的信息直接返回，用于返回非json
         """
         result_msg = {}
         try:
@@ -48,11 +51,11 @@ class Producer(object):
             if flag:
                 if self.__pg:
                     self.__pg.commit()
-                if process_type == 0:
+                if self.__process_type == 0:
                     result_msg['message'] = 'ok'
                     result_msg['data'] = msg
                     result_msg = json.dumps(result_msg, cls=DateEncoder)
-                if process_type == 1:
+                if self.__process_type == 1:
                     result_msg = msg
             else:
                 raise Exception(msg)
@@ -70,6 +73,10 @@ class Producer(object):
             self.__redis.close()
             self.__redis = None
         return result_msg
+
+    def set_process_type(self,type=1):
+        """设置返回值种类"""
+        self.__process_type = type
 
     def get_pg(self, conn=None, dict_cursor=True):
         """获取pg数据库对象"""
