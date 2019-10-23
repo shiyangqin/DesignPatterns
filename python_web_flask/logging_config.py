@@ -28,11 +28,9 @@ def config_logging(file_name="log.txt", log_level="NOSET"):
     else:
         os.makedirs(logs_dir)
 
-    # clear old root logger handlers
     logging.getLogger("").handlers = []
 
     file_name = os.path.join(logs_dir, file_name)
-    # define a rotating file handler
     rotating_file_handler = \
         logging.handlers.RotatingFileHandler(filename=file_name, maxBytes=1024 * 1024 * 50, backupCount=5)
     formatter = logging.Formatter("%(asctime)s %(name)-12s %(process)d %(levelname)-8s %(lineno)-6s %(message)s")
@@ -53,15 +51,10 @@ def config_logging(file_name="log.txt", log_level="NOSET"):
     rotating_file_handler.setFormatter(formatter)
     logging.getLogger("").addHandler(rotating_file_handler)
 
-    # define a handler whitch writes messages to sys
     console = logging.StreamHandler()
-    # set a format which is simple for console use
     formatter = logging.Formatter("%(asctime)s %(name)-12s %(process)d %(levelname)-8s %(lineno)-6s %(message)s")
-    # tell the handler to use this format
     console.setFormatter(formatter)
-    # add the handler to the root logger
     logging.getLogger("").addHandler(console)
-    # set initial log level
     logger = logging.getLogger("")
     level = LEVELS[log_level.upper()]
     logger.setLevel(level)
