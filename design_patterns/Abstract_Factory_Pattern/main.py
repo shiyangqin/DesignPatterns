@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from Abstract_Factory.ProductFactory.XiaomiProductFactory import XiaomiProductFactory
-from Abstract_Factory.ProductFactory.HuaweiProductFactory import HuaweiProductFactory
+from Abstract_Factory_Pattern.ProductFactory.XiaomiProductFactory import XiaomiProductFactory
+from Abstract_Factory_Pattern.ProductFactory.HuaweiProductFactory import HuaweiProductFactory
 
 
 if __name__ == '__main__':

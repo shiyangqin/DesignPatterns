@@ -2,8 +2,8 @@
 """
 华为工厂接口
 """
-from Abstract_Factory.ProductFactory import IProductFactory
-from Abstract_Factory.Procuct.HuaweiProduct import HuaweiPhone,HuaweiRouter
+from Abstract_Factory_Pattern.ProductFactory import IProductFactory
+from Abstract_Factory_Pattern.Procuct.HuaweiProduct import HuaweiPhone,HuaweiRouter
 
 
 class HuaweiProductFactory(IProductFactory):

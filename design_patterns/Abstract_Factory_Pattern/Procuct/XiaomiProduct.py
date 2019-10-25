@@ -2,7 +2,7 @@
 """
 小米产品
 """
-from Abstract_Factory.Procuct import IPhoneProduct,IRouterProduct
+from Abstract_Factory_Pattern.Procuct import IPhoneProduct,IRouterProduct
 
 
 class XiaomiPhone(IPhoneProduct):
