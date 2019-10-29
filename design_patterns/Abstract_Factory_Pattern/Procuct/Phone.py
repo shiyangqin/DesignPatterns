@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-华为产品
+手机产品
 """
-from Abstract_Factory_Pattern.Procuct import IPhoneProduct,IRouterProduct
+from Abstract_Factory_Pattern.Procuct import IPhone
 
 
-class HuaweiPhone(IPhoneProduct):
+class HuaweiPhone(IPhone):
     """
     华为手机
     """
@@ -26,22 +26,22 @@ class HuaweiPhone(IPhoneProduct):
         print('华为手机发短信')
 
 
-class HuaweiRouter(IRouterProduct):
+class XiaomiPhone(IPhone):
     """
-    华为路由器
+    小米手机
     """
     def start(self):
         """开机"""
-        print('启动华为路由器')
+        print('小米手机开机')
 
     def shutdown(self):
         """关机"""
-        print('关闭华为路由器')
+        print('小米手机关机')
 
-    def openWiFi(self):
-        """打开WiFi"""
-        print('打开华为路由器的WiFi功能')
+    def callUp(self):
+        """打电话"""
+        print('小米手机打电话')
 
-    def setting(self):
-        """设置参数"""
-        print('设置华为路由器参数')
+    def sendSMS(self):
+        """发短信"""
+        print('小米手机发短信')

@@ -3,7 +3,7 @@
 产品接口
 """
 
-class IPhoneProduct (object):
+class IPhone (object):
     """
     手机产品接口
     """
@@ -24,7 +24,7 @@ class IPhoneProduct (object):
         pass
 
 
-class IRouterProduct(object):
+class IRouter(object):
     """
     路由器产品接口
     """

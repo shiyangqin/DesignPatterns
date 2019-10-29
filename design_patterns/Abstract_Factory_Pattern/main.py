@@ -1,35 +1,35 @@
 # -*- coding: utf-8 -*-
-from Abstract_Factory_Pattern.ProductFactory.XiaomiProductFactory import XiaomiProductFactory
-from Abstract_Factory_Pattern.ProductFactory.HuaweiProductFactory import HuaweiProductFactory
+from Abstract_Factory_Pattern.ProductFactory.XiaomiFactory import XiaomiFactory
+from Abstract_Factory_Pattern.ProductFactory.HuaweiFactory import HuaweiFactory
 
 
 if __name__ == '__main__':
     print('================小米系列产品================')
-    xiaomiProductFactory = XiaomiProductFactory()
+    xiaomiFactory = XiaomiFactory()
     # 小米手机
-    xiaomiPhone = xiaomiProductFactory.producePhone()
+    xiaomiPhone = xiaomiFactory.createPhone()
     xiaomiPhone.start()
-    xiaomiPhone.shutdown()
     xiaomiPhone.callUp()
     xiaomiPhone.sendSMS()
+    xiaomiPhone.shutdown()
     # 小米路由器
-    xiaomiRouter = xiaomiProductFactory.produceRouter()
+    xiaomiRouter = xiaomiFactory.createRouter()
     xiaomiRouter.start()
-    xiaomiRouter.shutdown()
-    xiaomiRouter.openWiFi()
     xiaomiRouter.setting()
+    xiaomiRouter.openWiFi()
+    xiaomiRouter.shutdown()
 
     print('================华为系列产品================')
-    huaweiProductFactory = HuaweiProductFactory()
-    # 小米手机
-    huaweiPhone = huaweiProductFactory.producePhone()
+    huaweiFactory = HuaweiFactory()
+    # 华为手机
+    huaweiPhone = huaweiFactory.createPhone()
     huaweiPhone.start()
-    huaweiPhone.shutdown()
     huaweiPhone.callUp()
     huaweiPhone.sendSMS()
-    # 小米路由器
-    huaweiRouter = huaweiProductFactory.produceRouter()
+    huaweiPhone.shutdown()
+    # 华为路由器
+    huaweiRouter = huaweiFactory.createRouter()
     huaweiRouter.start()
-    huaweiRouter.shutdown()
-    huaweiRouter.openWiFi()
     huaweiRouter.setting()
+    huaweiRouter.openWiFi()
+    huaweiRouter.shutdown()

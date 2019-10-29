@@ -2,20 +2,21 @@
 """
 小米工厂接口
 """
-from Abstract_Factory_Pattern.ProductFactory import IProductFactory
-from Abstract_Factory_Pattern.Procuct.XiaomiProduct import XiaomiPhone,XiaomiRouter
+from Abstract_Factory_Pattern.ProductFactory import IFactory
+from Abstract_Factory_Pattern.Procuct.Phone import XiaomiPhone
+from Abstract_Factory_Pattern.Procuct.Router import XiaomiRouter
 
 
-class XiaomiProductFactory(IProductFactory):
+class XiaomiFactory(IFactory):
     """
     小米产品工厂
     """
-    def producePhone(self):
+    def createPhone(self):
         """生产手机"""
         print('>>>>>>生产小米手机')
         return XiaomiPhone()
 
-    def produceRouter(self):
+    def createRouter(self):
         """生产路由器"""
         print('>>>>>>生产小米路由器')
         return XiaomiRouter()

@@ -4,15 +4,15 @@
 """
 
 
-class IProductFactory(object):
+class IFactory(object):
     """
     工厂接口
     """
 
-    def producePhone(self):
+    def createPhone(self):
         """生产手机"""
         pass
 
-    def produceRouter(self):
+    def createRouter(self):
         """生产路由器"""
         pass
