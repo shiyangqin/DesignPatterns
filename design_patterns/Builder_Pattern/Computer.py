@@ -5,28 +5,28 @@ class Computer(object):
     """
     电脑
     """
-    master = ''
-    screen = ''
-    keyboard = ''
-    mouse = ''
-    audio = ''
+    _master = ''
+    _screen = ''
+    _keyboard = ''
+    _mouse = ''
+    _audio = ''
 
     def setMaster(self,master):
         """设置主机"""
-        self.master = master
+        self._master = master
 
     def setScreen(self,screen):
         """设置显示器"""
-        self.screen = screen
+        self._screen = screen
 
     def setKeyboard(self, keyboard):
         """设置键盘"""
-        self.keyboard = keyboard
+        self._keyboard = keyboard
 
     def setMouse(self,mouse):
         """设置鼠标"""
-        self.mouse = mouse
+        self._mouse = mouse
 
     def setAudio(self,audio):
         """设置音响"""
-        self.audio = audio
+        self._audio = audio
