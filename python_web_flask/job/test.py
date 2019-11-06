@@ -15,3 +15,4 @@ class Test(Producer):
         redis = self.get_redis()
         LOG.debug('this is Test')
         return True, res
+ 
