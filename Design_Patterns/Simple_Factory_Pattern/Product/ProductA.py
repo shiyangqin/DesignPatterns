@@ -2,7 +2,7 @@
 """
 产品A
 """
-from Simple_Factory_Pattem.Product import IProduct
+from Simple_Factory_Pattern.Product import IProduct
 
 
 class ProductA(IProduct):

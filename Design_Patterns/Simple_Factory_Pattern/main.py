@@ -2,7 +2,7 @@
 """
 主函数
 """
-from Simple_Factory_Pattem.Factory import Factory
+from Simple_Factory_Pattern.Factory import Factory
 
 
 if __name__ == '__main__':

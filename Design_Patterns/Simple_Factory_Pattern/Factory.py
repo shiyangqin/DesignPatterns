@@ -2,8 +2,8 @@
 """
 工厂
 """
-from Simple_Factory_Pattem.Product.ProductA import ProductA
-from Simple_Factory_Pattem.Product.ProductB import ProductB
+from Simple_Factory_Pattern.Product.ProductA import ProductA
+from Simple_Factory_Pattern.Product.ProductB import ProductB
 
 
 class Factory(object):
