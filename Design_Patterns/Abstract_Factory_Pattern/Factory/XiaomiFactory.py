@@ -2,7 +2,7 @@
 """
 小米工厂接口
 """
-from Abstract_Factory_Pattern.ProductFactory import IFactory
+from Abstract_Factory_Pattern.Factory import IFactory
 from Abstract_Factory_Pattern.Procuct.Phone import XiaomiPhone
 from Abstract_Factory_Pattern.Procuct.Router import XiaomiRouter
 
