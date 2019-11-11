@@ -16,8 +16,6 @@ class Factory(object):
         生产产品
         :type 产品类型  A  B  C
         """
-        if not type:
-            return None
         if type == 'A':
             return ProductA()
         if type == 'B':

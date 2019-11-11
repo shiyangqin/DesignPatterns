@@ -9,6 +9,6 @@ class ProductA(IProduct):
     """
     产品A
     """
-    def function(self):
-        """产品功能"""
+    def show(self):
+        """显示产品信息"""
         print('这是产品A')
