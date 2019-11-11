@@ -8,6 +8,6 @@ class IProduct(object):
     """
     产品接口
     """
-    def function(self):
-        """产品功能"""
+    def show(self):
+        """显示产品信息"""
         pass

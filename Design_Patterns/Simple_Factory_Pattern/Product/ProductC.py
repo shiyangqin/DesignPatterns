@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-产品A
+产品C
 """
 from Simple_Factory_Pattern.Product import IProduct
 
 
-class ProductA(IProduct):
+class ProductC(IProduct):
     """
-    产品A
+    产品B
     """
     def show(self):
         """显示产品信息"""
-        print('这是产品A')
+        print('这是产品C')
