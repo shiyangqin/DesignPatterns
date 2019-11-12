@@ -39,61 +39,65 @@ class Producer(object):
     """
     __pg = None
     __redis = None
-    __process_type = 0
+    __processType = 0
 
     def do(self, request):
-        """
-        request: url请求信息
-        """
+        """业务代码公共部分"""
         result_msg = {}
         try:
+            # 业务处理逻辑
             flag, msg = self.process(request)
             if flag:
                 if self.__pg:
                     self.__pg.commit()
-                if self.__process_type == 0:
+                if self.__processType == 0:
                     result_msg['message'] = 'ok'
                     result_msg['data'] = msg
                     result_msg = json.dumps(result_msg, cls=DateEncoder)
-                if self.__process_type == 1:
+                if self.__processType == 1:
                     result_msg = msg
             else:
                 raise Exception(msg)
+            return result_msg
         except Exception as e:
+            # 异常处理逻辑
             if self.__pg:
                 self.__pg.rollback()
             LOG.exception(e)
             result_msg['message'] = str(e)
             result_msg = json.dumps(result_msg, cls=DateEncoder)
-        if self.__pg:
-            del self.__pg
-            self.__pg = None
-        if self.__redis:
-            LOG.debug('>>>>>>redis conn close>>>>>>')
-            self.__redis.close()
-            self.__redis = None
-        return result_msg
+            return result_msg
+        finally:
+            # 释放资源
+            if self.__pg:
+                del self.__pg
+                self.__pg = None
+            if self.__redis:
+                LOG.debug('>>>>>>redis conn close>>>>>>')
+                self.__redis.close()
+                self.__redis = None
 
-    def set_process_type(self,type=1):
+    def setProcessType(self, type=1):
         """设置返回值种类"""
-        self.__process_type = type
+        self.__processType = type
 
-    def get_pg(self, conn=None, dict_cursor=True):
+    def getPg(self, conn=None, dict_cursor=True):
         """获取pg数据库对象"""
         if not self.__pg:
             self.__pg = PostgreSQL(conn=conn if conn else current_app.pool.connection(), dict_cursor=dict_cursor)
         return self.__pg
 
-    def get_redis(self,host=REDIS.redis_host, port=REDIS.redis_port, db=REDIS.redis_db, password=REDIS.redis_pwd):
+    def getRedis(self, host=REDIS.redis_host, port=REDIS.redis_port, db=REDIS.redis_db, password=REDIS.redis_pwd):
         """获取redis连接"""
         if not self.__redis:
             LOG.debug('>>>>>>redis get conn>>>>>>')
-            self.__redis = redis.Redis(host, port, db, password)
+            self.__redis = redis.Redis(host=host, port=port, db=db, password=password)
         return self.__redis
 
     def process(self, request):
         """
-        在字类中重写process来处理业务
+        业务代码逻辑部分
+        在子类中重写process来处理业务
         返回:
             result_flag（标识位：false/true）
             result_msg(返回信息，json/Response)

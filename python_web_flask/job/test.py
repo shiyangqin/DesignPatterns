@@ -11,8 +11,8 @@ class Test(Producer):
         res = {
             "mseeage": "ok"
         }
-        pg = self.get_pg()
-        redis = self.get_redis()
+        pg = self.getPg()
+        redis = self.getRedis()
         LOG.debug('this is Test')
         return True, res
  

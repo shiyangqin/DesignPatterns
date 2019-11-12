@@ -7,7 +7,7 @@ from config import LOG
 from utils.PostgreSQL import PG_Pool
 
 app = Flask(__name__)
-app.register_blueprint(main_app,url_prefix='/admin')
+app.register_blueprint(main_app)
 
 pg_link = PG_Pool()
 app.app_context().push()
