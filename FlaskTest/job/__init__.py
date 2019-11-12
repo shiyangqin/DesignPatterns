@@ -5,7 +5,7 @@ from datetime import date
 from datetime import datetime
 
 import redis
-from flask import current_app
+from flask import current_app, request
 
 from config import REDIS
 from utils.PostgreSQL import PostgreSQL
@@ -41,7 +41,7 @@ class Producer(object):
     __redis = None
     __processType = 0
 
-    def do(self, request):
+    def do(self):
         """业务代码公共部分"""
         result_msg = {}
         try:

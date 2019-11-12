@@ -1,8 +1,6 @@
 # -*- coding: UTF-8 -*-
 import logging
 
-from flask import request
-
 from job.test import Test
 from . import main_app as app
 
@@ -13,4 +11,4 @@ LOG = logging.getLogger(__name__)
 def test():
     """测试"""
     LOG.debug("================server test================")
-    return Test().do(request)
+    return Test().do()
