@@ -1,4 +1,4 @@
 ## Qinsy
 
-- python_web_flask:flask??
-- design_patterns:????
+- FlaskTest:flask??
+- DesignPatterns:????
