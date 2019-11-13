@@ -11,6 +11,6 @@ if __name__ == '__main__':
     print("Total Cost: ", vegMeal.getCost())
 
     nonVegMeal = mealBuilder.prepareNonVegMeal()
-    print("\n\nveg Meal")
-    vegMeal.showItems()
-    print("Total Cost: ", vegMeal.getCost())
+    print("\nNon-Veg Meal")
+    nonVegMeal.showItems()
+    print("Total Cost: ", nonVegMeal.getCost())
