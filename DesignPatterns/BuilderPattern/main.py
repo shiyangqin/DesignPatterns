@@ -1,20 +1,16 @@
 # -*- coding: utf-8 -*-
-from BuilderPattern.Builder.DellComputerBuilder import DellComputerBuilder
-from BuilderPattern.Builder.HPComputerBuilder import HPComputerBuilder
-from BuilderPattern.Director import ComputerDirector
+from BuilderPattern.MealBuilder import MealBuilder
+
 
 if __name__ == '__main__':
-    director = ComputerDirector()
-    hp = HPComputerBuilder()
-    dell = DellComputerBuilder()
-    computer = None
+    mealBuilder = MealBuilder()
 
-    print('>>>>>>生产一台惠普电脑')
-    director.setComputerBuilder(hp)
-    director.constructComputer()
-    computer = director.getComputer()
+    vegMeal = mealBuilder.prepareVegMeal()
+    print("veg Meal")
+    vegMeal.showItems()
+    print("Total Cost: ", vegMeal.getCost())
 
-    print('>>>>>>生产一台戴尔电脑')
-    director.setComputerBuilder(dell)
-    director.constructComputer()
-    computer = director.getComputer()
+    nonVegMeal = mealBuilder.prepareNonVegMeal()
+    print("\n\nveg Meal")
+    vegMeal.showItems()
+    print("Total Cost: ", vegMeal.getCost())

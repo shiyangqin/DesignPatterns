@@ -37,9 +37,10 @@ class Producer(object):
                         0-默认值，将process返回的msg作为json处理，用于大部分业务
                         1-将process返回的msg直接返回给前端，用于下载等业务
     """
-    __pg = None
-    __redis = None
-    __processType = 0
+    def __init__(self):
+        self.__pg = None
+        self.__redis = None
+        self.__processType = 0
 
     def do(self):
         """业务代码公共部分"""
@@ -78,7 +79,7 @@ class Producer(object):
                 self.__redis = None
 
     def setProcessType(self, type=1):
-        """设置返回值种类"""
+        """设置返回值类型"""
         self.__processType = type
 
     def getPg(self, conn=None, dict_cursor=True):
