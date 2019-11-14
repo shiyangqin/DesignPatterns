@@ -12,7 +12,6 @@ LOG = logging.getLogger(__name__)
 
 class PG_Pool(object):
     """pg数据库连接池"""
-    __pool = None
 
     def __init__(self):
         LOG.debug(">>>>>>pg_pool start create>>>>>>")
@@ -34,12 +33,10 @@ class PG_Pool(object):
 
 class PostgreSQL(object):
     """pg数据库封装类"""
-    __conn = None
-    __cursor = None
-    __commit = False
 
     def __init__(self, conn=None, dict_cursor=True):
         """创建连接"""
+        self.__commit = False
         if conn:
             LOG.debug(">>>>>>PostgreSQL set conn>>>>>>")
             self.__conn = conn
