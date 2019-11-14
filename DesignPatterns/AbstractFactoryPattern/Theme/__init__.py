@@ -8,9 +8,10 @@ class Theme(object):
     """
     主题类
     """
-    __font = None
-    __colour = None
-    __icon = None
+    def __init__(self):
+        self.__font = None
+        self.__colour = None
+        self.__icon = None
 
     def getFont(self):
         return self.__font
