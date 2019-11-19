@@ -13,17 +13,17 @@ LOG = logging.getLogger(__name__)
 class PG_Pool(object):
     """pg数据库连接池"""
 
-    def __init__(self):
+    def __init__(self, host=PG.pg_host, port=PG.pg_port, database=PG.pg_name, user=PG.pg_user, password=PG.pg_pwd):
         LOG.debug(">>>>>>pg_pool start create>>>>>>")
         self.__pool = PooledDB(
             psycopg2,
             mincached=5,
             blocking=True,
-            host=PG.pg_host,
-            port=PG.pg_port,
-            database=PG.pg_name,
-            user=PG.pg_user,
-            password=PG.pg_pwd
+            host=host,
+            port=port,
+            database=database,
+            user=user,
+            password=password
         )
         LOG.debug(">>>>>>pg_pool create success>>>>>>")
 
@@ -34,7 +34,7 @@ class PG_Pool(object):
 class PostgreSQL(object):
     """pg数据库封装类"""
 
-    def __init__(self, conn=None, dict_cursor=True):
+    def __init__(self, host=PG.pg_host, port=PG.pg_port, database=PG.pg_name, user=PG.pg_user, password=PG.pg_pwd, conn=None, dict_cursor=True):
         """创建连接"""
         self.__commit = False
         if conn:
@@ -43,11 +43,11 @@ class PostgreSQL(object):
         else:
             LOG.debug(">>>>>>PostgreSQL get conn>>>>>>")
             self.__conn = psycopg2.connect(
-                host=PG.pg_host,
-                port=PG.pg_port,
-                database=PG.pg_name,
-                user=PG.pg_user,
-                password=PG.pg_pwd
+                host=host,
+                port=port,
+                database=database,
+                user=user,
+                password=password
             )
         if dict_cursor:
             self.__cursor = self.__conn.cursor(cursor_factory=RealDictCursor)

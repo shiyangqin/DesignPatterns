@@ -26,7 +26,32 @@ class DateEncoder(json.JSONEncoder):
             return json.JSONEncoder.default(self, obj)
 
 
-class Producer(object):
+class HasRedis(object):
+    """redis业务基类"""
+    def __init__(self):
+        self._redis = None
+
+    def getRedis(self, host=REDIS.redis_host, port=REDIS.redis_port, db=REDIS.redis_db, password=REDIS.redis_pwd):
+        """获取redis连接"""
+        if not self._redis:
+            LOG.debug('>>>>>>redis get conn>>>>>>')
+            self._redis = redis.Redis(host=host, port=port, db=db, password=password)
+        return self._redis
+
+
+class HasPostgreSQL(object):
+    """PG数据库业务基类"""
+    def __init__(self):
+        self._pg = None
+
+    def getPostgreSQL(self, dict_cursor=True):
+        """获取pg数据库对象"""
+        if not self._pg:
+            self._pg = PostgreSQL(conn=current_app.pool.connection(), dict_cursor=dict_cursor)
+        return self._pg
+
+
+class Producer(HasRedis, HasPostgreSQL):
     """
     逻辑处理基类：
         do：统一进行异常处理和数据库的连接、提交、异常回滚、关闭等操作，调用process逻辑处理函数
@@ -38,9 +63,13 @@ class Producer(object):
                         1-将process返回的msg直接返回给前端，用于下载等业务
     """
     def __init__(self):
-        self.__pg = None
-        self.__redis = None
-        self.__processType = 0
+        HasRedis.__init__(self)
+        HasPostgreSQL.__init__(self)
+        self._processType = 0
+
+    def setProcessType(self, type=1):
+        """设置返回值类型"""
+        self._processType = type
 
     def do(self):
         """业务代码公共部分"""
@@ -49,51 +78,34 @@ class Producer(object):
             # 业务处理逻辑
             flag, msg = self.process(request)
             if flag:
-                if self.__pg:
-                    self.__pg.commit()
-                if self.__processType == 0:
+                if self._processType == 0:
                     result_msg['message'] = 'ok'
                     result_msg['data'] = msg
                     result_msg = json.dumps(result_msg, cls=DateEncoder)
-                if self.__processType == 1:
+                if self._processType == 1:
                     result_msg = msg
             else:
                 raise Exception(msg)
+            if self._pg:
+                self._pg.commit()
             return result_msg
         except Exception as e:
             # 异常处理逻辑
-            if self.__pg:
-                self.__pg.rollback()
+            if self._pg:
+                self._pg.rollback()
             LOG.exception(e)
             result_msg['message'] = str(e)
             result_msg = json.dumps(result_msg, cls=DateEncoder)
             return result_msg
         finally:
             # 释放资源
-            if self.__pg:
-                del self.__pg
-                self.__pg = None
-            if self.__redis:
+            if self._pg:
+                del self._pg
+                self._pg = None
+            if self._redis:
                 LOG.debug('>>>>>>redis conn close>>>>>>')
-                self.__redis.close()
-                self.__redis = None
-
-    def setProcessType(self, type=1):
-        """设置返回值类型"""
-        self.__processType = type
-
-    def getPg(self, conn=None, dict_cursor=True):
-        """获取pg数据库对象"""
-        if not self.__pg:
-            self.__pg = PostgreSQL(conn=conn if conn else current_app.pool.connection(), dict_cursor=dict_cursor)
-        return self.__pg
-
-    def getRedis(self, host=REDIS.redis_host, port=REDIS.redis_port, db=REDIS.redis_db, password=REDIS.redis_pwd):
-        """获取redis连接"""
-        if not self.__redis:
-            LOG.debug('>>>>>>redis get conn>>>>>>')
-            self.__redis = redis.Redis(host=host, port=port, db=db, password=password)
-        return self.__redis
+                self._redis.close()
+                self._redis = None
 
     def process(self, request):
         """
