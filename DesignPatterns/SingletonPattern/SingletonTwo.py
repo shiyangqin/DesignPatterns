@@ -16,7 +16,6 @@ def Singleton(cls):
     return _singleton
 
 
-
 @Singleton
 class SingletonTwo(object):
     """
