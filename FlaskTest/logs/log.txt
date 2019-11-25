@@ -1,16 +1,16 @@
-2019-11-19 10:44:31,315 utils.PostgreSQL 61324 DEBUG    17     >>>>>>pg_pool start create>>>>>>
-2019-11-19 10:44:31,971 utils.PostgreSQL 61324 DEBUG    28     >>>>>>pg_pool create success>>>>>>
-2019-11-19 10:44:31,989 werkzeug     61324 INFO     122     * Restarting with stat
-2019-11-19 10:44:33,250 utils.PostgreSQL 90836 DEBUG    17     >>>>>>pg_pool start create>>>>>>
-2019-11-19 10:44:34,001 utils.PostgreSQL 90836 DEBUG    28     >>>>>>pg_pool create success>>>>>>
-2019-11-19 10:44:34,012 werkzeug     90836 WARNING  122     * Debugger is active!
-2019-11-19 10:44:34,024 werkzeug     90836 INFO     122     * Debugger PIN: 190-755-834
-2019-11-19 10:44:34,057 werkzeug     90836 INFO     122     * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
-2019-11-19 10:44:38,811 werkzeug     90836 INFO     122    127.0.0.1 - - [19/Nov/2019 10:44:38] "GET /response/test HTTP/1.1" 404 -
-2019-11-19 10:44:47,831 App.app_test 90836 DEBUG    13     ================server test================
-2019-11-19 10:44:47,833 utils.PostgreSQL 90836 DEBUG    41     >>>>>>PostgreSQL set conn>>>>>>
-2019-11-19 10:44:47,834 job          90836 DEBUG    37     >>>>>>redis get conn>>>>>>
-2019-11-19 10:44:47,835 job.test     90836 DEBUG    16     this is Test
-2019-11-19 10:44:47,836 utils.PostgreSQL 90836 DEBUG    65     >>>>>>PostgreSQL conn close>>>>>>
-2019-11-19 10:44:47,836 job          90836 DEBUG    106    >>>>>>redis conn close>>>>>>
-2019-11-19 10:44:47,838 werkzeug     90836 INFO     122    127.0.0.1 - - [19/Nov/2019 10:44:47] "GET /Test/test HTTP/1.1" 200 -
+2019-11-19 16:24:39,727 utils.PostgreSQL 102624 DEBUG    17     >>>>>>pg_pool start create>>>>>>
+2019-11-19 16:24:40,727 utils.PostgreSQL 102624 DEBUG    28     >>>>>>pg_pool create success>>>>>>
+2019-11-19 16:24:40,747 werkzeug     102624 INFO     122     * Restarting with stat
+2019-11-19 16:24:42,218 utils.PostgreSQL 102872 DEBUG    17     >>>>>>pg_pool start create>>>>>>
+2019-11-19 16:24:43,078 utils.PostgreSQL 102872 DEBUG    28     >>>>>>pg_pool create success>>>>>>
+2019-11-19 16:24:43,089 werkzeug     102872 WARNING  122     * Debugger is active!
+2019-11-19 16:24:43,099 werkzeug     102872 INFO     122     * Debugger PIN: 190-755-834
+2019-11-19 16:24:43,134 werkzeug     102872 INFO     122     * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+2019-11-19 16:24:57,778 App.appTest  102872 DEBUG    13     ================server test================
+2019-11-19 16:24:57,780 utils.PostgreSQL 102872 DEBUG    41     >>>>>>PostgreSQL set conn>>>>>>
+2019-11-19 16:24:57,781 job          102872 DEBUG    37     >>>>>>redis get conn>>>>>>
+2019-11-19 16:24:57,783 job.test     102872 DEBUG    16     this is Test
+2019-11-19 16:24:57,783 utils.PostgreSQL 102872 DEBUG    65     >>>>>>PostgreSQL conn close>>>>>>
+2019-11-19 16:24:57,784 job          102872 DEBUG    106    >>>>>>redis conn close>>>>>>
+2019-11-19 16:24:57,786 werkzeug     102872 INFO     122    127.0.0.1 - - [19/Nov/2019 16:24:57] "GET /Test/test HTTP/1.1" 200 -
+2019-11-19 16:24:57,840 werkzeug     102872 INFO     122    127.0.0.1 - - [19/Nov/2019 16:24:57] "GET /favicon.ico HTTP/1.1" 404 -

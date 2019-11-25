@@ -2,7 +2,7 @@
 import logging
 
 from job.test import Test
-from . import main_app as app
+from . import mainApp as app
 
 LOG = logging.getLogger(__name__)
 

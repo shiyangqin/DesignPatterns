@@ -10,7 +10,7 @@ from config import PG
 LOG = logging.getLogger(__name__)
 
 
-class PG_Pool(object):
+class PgPool(object):
     """pg数据库连接池"""
 
     def __init__(self, host=PG.pg_host, port=PG.pg_port, database=PG.pg_name, user=PG.pg_user, password=PG.pg_pwd):
@@ -27,7 +27,7 @@ class PG_Pool(object):
         )
         LOG.debug(">>>>>>pg_pool create success>>>>>>")
 
-    def get_pool(self):
+    def getPool(self):
         return self.__pool
 
 
@@ -88,10 +88,10 @@ class PostgreSQL(object):
             self.__conn.commit()
             self.__commit = False
 
-    def set_commit(self, commit=True):
+    def setCommit(self, commit=True):
         """设置数据库提交标识"""
         self.__commit = commit
 
-    def get_conn(self):
+    def getConn(self):
         """获取conn对象"""
         return self.__conn
