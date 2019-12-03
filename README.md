@@ -1,4 +1,1 @@
 ## Qinsy
-
-- FlaskTest:flask??
-- DesignPatterns:????
