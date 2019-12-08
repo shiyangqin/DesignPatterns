@@ -2,7 +2,7 @@
 """
 暗主题工厂
 """
-from abstract_factory_pattern.ThemeFactory import IThemeFactory
+from abstract_factory_pattern.theme_factory import IThemeFactory
 from abstract_factory_pattern.theme.font.dark_font import DarkFont
 from abstract_factory_pattern.theme.colour.dark_colour import DarkColour
 from abstract_factory_pattern.theme.icon.dark_icon import DarkIcon

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from abstract_factory_pattern.ThemeFactory.bright_theme_factory import BrightThemeFactory
-from abstract_factory_pattern.ThemeFactory.dark_theme_factory import DarkThemeFactory
+from abstract_factory_pattern.theme_factory.bright_theme_factory import BrightThemeFactory
+from abstract_factory_pattern.theme_factory.dark_theme_factory import DarkThemeFactory
 
 
 if __name__ == '__main__':
