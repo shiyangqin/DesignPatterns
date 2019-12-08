@@ -2,7 +2,7 @@
 """
 模型类接口
 """
-from flyweight_pattern.shape.Circle import Circle
+from flyweight_pattern.shape.circle import Circle
 
 class Shape(object):
     """
