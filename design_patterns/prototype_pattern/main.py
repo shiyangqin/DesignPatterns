@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from prototype_pattern.Prototype import Prototype, Member
+from prototype_pattern.prototype import Prototype, Member
 
 
 if __name__ == '__main__':

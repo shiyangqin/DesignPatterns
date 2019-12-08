@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from adapter_pattern.media_player.AudioPlayer import AudioPlayer
+from adapter_pattern.media_player.audio_player import AudioPlayer
 
 
 if __name__ == '__main__':
