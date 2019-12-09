@@ -10,7 +10,7 @@ from flask import current_app, request
 from config import REDIS
 from utils.postgresql import PostgreSQL
 
-LOG = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class DateEncoder(json.JSONEncoder):
@@ -34,7 +34,7 @@ class HasRedis(object):
     def get_redis(self, host=REDIS.redis_host, port=REDIS.redis_port, db=REDIS.redis_db, password=REDIS.redis_pwd):
         """获取redis连接"""
         if not self._redis:
-            LOG.debug('>>>>>>redis get conn>>>>>>')
+            logger.debug('>>>>>>redis get conn>>>>>>')
             self._redis = redis.Redis(host=host, port=port, db=db, password=password)
         return self._redis
 
@@ -93,7 +93,7 @@ class Producer(HasRedis, HasPostgreSQL):
             # 异常处理逻辑
             if self._pg:
                 self._pg.rollback()
-            LOG.exception(e)
+            logger.exception(e)
             result_msg['message'] = str(e)
             result_msg = json.dumps(result_msg, cls=DateEncoder)
             return result_msg
@@ -103,7 +103,7 @@ class Producer(HasRedis, HasPostgreSQL):
                 del self._pg
                 self._pg = None
             if self._redis:
-                LOG.debug('>>>>>>redis conn close>>>>>>')
+                logger.debug('>>>>>>redis conn close>>>>>>')
                 self._redis.close()
                 self._redis = None
 

@@ -3,7 +3,7 @@ import logging
 
 from job import Producer
 
-LOG = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class Test(Producer):
@@ -13,6 +13,6 @@ class Test(Producer):
         }
         pg = self.get_postgresql()
         redis = self.get_redis()
-        LOG.debug('this is Test')
+        logger.debug('this is Test')
         return True, res
  

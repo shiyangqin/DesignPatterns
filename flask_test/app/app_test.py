@@ -4,11 +4,11 @@ import logging
 from job.test import Test
 from . import test_app as app
 
-LOG = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 @app.route('/test', methods=['GET'])
 def test():
     """测试"""
-    LOG.debug("================server test================")
+    logger.debug("================server test================")
     return Test().do()

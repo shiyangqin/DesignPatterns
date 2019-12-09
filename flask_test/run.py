@@ -11,9 +11,9 @@ logging_config.configLogging(LOG.log_name, LOG.log_level)
 app = Flask(__name__)
 app.register_blueprint(test_app)
 
-pgPool = PgPool()
+pg_pool = PgPool()
 app.app_context().push()
-current_app.pool = pgPool.get_pool()
+current_app.pool = pg_pool.get_pool()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9000, debug=True)
