@@ -27,7 +27,7 @@ class PgPool(object):
         )
         LOG.debug(">>>>>>pg_pool create success>>>>>>")
 
-    def getPool(self):
+    def get_pool(self):
         return self.__pool
 
 
@@ -88,10 +88,10 @@ class PostgreSQL(object):
             self.__conn.commit()
             self.__commit = False
 
-    def setCommit(self, commit=True):
+    def set_commit(self, commit=True):
         """设置数据库提交标识"""
         self.__commit = commit
 
-    def getConn(self):
+    def get_conn(self):
         """获取conn对象"""
         return self.__conn

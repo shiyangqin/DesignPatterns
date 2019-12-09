@@ -8,7 +8,7 @@ import redis
 from flask import current_app, request
 
 from config import REDIS
-from utils.PostgreSQL import PostgreSQL
+from utils.postgresql import PostgreSQL
 
 LOG = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ class HasRedis(object):
     def __init__(self):
         self._redis = None
 
-    def getRedis(self, host=REDIS.redis_host, port=REDIS.redis_port, db=REDIS.redis_db, password=REDIS.redis_pwd):
+    def get_redis(self, host=REDIS.redis_host, port=REDIS.redis_port, db=REDIS.redis_db, password=REDIS.redis_pwd):
         """获取redis连接"""
         if not self._redis:
             LOG.debug('>>>>>>redis get conn>>>>>>')
@@ -44,7 +44,7 @@ class HasPostgreSQL(object):
     def __init__(self):
         self._pg = None
 
-    def getPostgreSQL(self, dict_cursor=True):
+    def get_postgresql(self, dict_cursor=True):
         """获取pg数据库对象"""
         if not self._pg:
             self._pg = PostgreSQL(conn=current_app.pool.connection(), dict_cursor=dict_cursor)
@@ -65,11 +65,11 @@ class Producer(HasRedis, HasPostgreSQL):
     def __init__(self):
         HasRedis.__init__(self)
         HasPostgreSQL.__init__(self)
-        self._processType = 0
+        self._process_type = 0
 
-    def setProcessType(self, type=1):
+    def set_process_type(self, type=1):
         """设置返回值类型"""
-        self._processType = type
+        self._process_type = type
 
     def do(self):
         """业务代码公共部分"""
@@ -78,11 +78,11 @@ class Producer(HasRedis, HasPostgreSQL):
             # 业务处理逻辑
             flag, msg = self.process(request)
             if flag:
-                if self._processType == 0:
+                if self._process_type == 0:
                     result_msg['message'] = 'ok'
                     result_msg['data'] = msg
                     result_msg = json.dumps(result_msg, cls=DateEncoder)
-                if self._processType == 1:
+                if self._process_type == 1:
                     result_msg = msg
             else:
                 raise Exception(msg)
