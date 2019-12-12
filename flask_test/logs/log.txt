@@ -1,16 +1,12 @@
-2019-12-09 15:01:04,200 utils.postgresql 3844 DEBUG    17     >>>>>>pg_pool start create>>>>>>
-2019-12-09 15:01:04,794 utils.postgresql 3844 DEBUG    28     >>>>>>pg_pool create success>>>>>>
-2019-12-09 15:01:04,981 werkzeug     3844 INFO     122     * Restarting with stat
-2019-12-09 15:01:05,528 utils.postgresql 10180 DEBUG    17     >>>>>>pg_pool start create>>>>>>
-2019-12-09 15:01:06,403 utils.postgresql 10180 DEBUG    28     >>>>>>pg_pool create success>>>>>>
-2019-12-09 15:01:06,403 werkzeug     10180 WARNING  122     * Debugger is active!
-2019-12-09 15:01:06,418 werkzeug     10180 INFO     122     * Debugger PIN: 109-165-678
-2019-12-09 15:01:06,434 werkzeug     10180 INFO     122     * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
-2019-12-09 15:01:37,904 app.app_test 10180 DEBUG    13     ================server test================
-2019-12-09 15:01:37,904 utils.postgresql 10180 DEBUG    41     >>>>>>PostgreSQL set conn>>>>>>
-2019-12-09 15:01:37,905 job          10180 DEBUG    37     >>>>>>redis get conn>>>>>>
-2019-12-09 15:01:37,905 job.test     10180 DEBUG    16     this is Test
-2019-12-09 15:01:37,905 utils.postgresql 10180 DEBUG    65     >>>>>>PostgreSQL conn close>>>>>>
-2019-12-09 15:01:37,905 job          10180 DEBUG    106    >>>>>>redis conn close>>>>>>
-2019-12-09 15:01:37,906 werkzeug     10180 INFO     122    127.0.0.1 - - [09/Dec/2019 15:01:37] "GET /Test/test HTTP/1.1" 200 -
-2019-12-09 15:01:38,012 werkzeug     10180 INFO     122    127.0.0.1 - - [09/Dec/2019 15:01:38] "GET /favicon.ico HTTP/1.1" 404 -
+2019-12-12 16:54:15,004 utils.postgresql 388 DEBUG    17     >>>>>>pg_pool start create>>>>>>
+2019-12-12 16:54:15,462 utils.postgresql 388 DEBUG    28     >>>>>>pg_pool create success>>>>>>
+2019-12-12 16:54:15,475 werkzeug     388 INFO     122     * Restarting with stat
+2019-12-12 16:54:16,041 utils.postgresql 2044 DEBUG    17     >>>>>>pg_pool start create>>>>>>
+2019-12-12 16:54:16,643 utils.postgresql 2044 DEBUG    28     >>>>>>pg_pool create success>>>>>>
+2019-12-12 16:54:16,652 werkzeug     2044 WARNING  122     * Debugger is active!
+2019-12-12 16:54:16,655 werkzeug     2044 INFO     122     * Debugger PIN: 215-678-611
+2019-12-12 16:54:16,666 werkzeug     2044 INFO     122     * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+2019-12-12 16:54:19,660 werkzeug     2044 INFO     122    127.0.0.1 - - [12/Dec/2019 16:54:19] "GET /test HTTP/1.1" 308 -
+2019-12-12 16:54:19,662 app.app_test 2044 DEBUG    15     ================server test================
+2019-12-12 16:54:19,663 job.test     2044 DEBUG    11     this is test
+2019-12-12 16:54:19,663 werkzeug     2044 INFO     122    127.0.0.1 - - [12/Dec/2019 16:54:19] "GET /test/ HTTP/1.1" 200 -

@@ -7,12 +7,6 @@ logger = logging.getLogger(__name__)
 
 
 class Test(Producer):
-    def process(self, request):
-        res = {
-            "mseeage": "ok"
-        }
-        pg = self.get_postgresql()
-        redis = self.get_redis()
-        logger.debug('this is Test')
-        return True, res
- 
+    def process(self, **param):
+        logger.debug('this is test')
+        return True, "this is test"

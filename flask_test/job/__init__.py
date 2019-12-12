@@ -5,7 +5,7 @@ from datetime import date
 from datetime import datetime
 
 import redis
-from flask import current_app, request
+from flask import current_app
 
 from config import REDIS
 from utils.postgresql import PostgreSQL
@@ -17,6 +17,7 @@ class DateEncoder(json.JSONEncoder):
     """
     解决json序列化时时间不能序列化问题
     """
+
     def default(self, obj):
         if isinstance(obj, datetime):
             return obj.strftime('%Y-%m-%d %H:%M:%S')
@@ -28,6 +29,7 @@ class DateEncoder(json.JSONEncoder):
 
 class HasRedis(object):
     """redis业务基类"""
+
     def __init__(self):
         self._redis = None
 
@@ -41,6 +43,7 @@ class HasRedis(object):
 
 class HasPostgreSQL(object):
     """PG数据库业务基类"""
+
     def __init__(self):
         self._pg = None
 
@@ -62,6 +65,7 @@ class Producer(HasRedis, HasPostgreSQL):
                         0-默认值，将process返回的msg作为json处理，用于大部分业务
                         1-将process返回的msg直接返回给前端，用于下载等业务
     """
+
     def __init__(self):
         HasRedis.__init__(self)
         HasPostgreSQL.__init__(self)
@@ -71,12 +75,12 @@ class Producer(HasRedis, HasPostgreSQL):
         """设置返回值类型"""
         self._process_type = type
 
-    def do(self):
+    def do(self, **kwargs):
         """业务代码公共部分"""
         result_msg = {}
         try:
             # 业务处理逻辑
-            flag, msg = self.process(request)
+            flag, msg = self.process(**kwargs)
             if flag:
                 if self._process_type == 0:
                     result_msg['message'] = 'ok'
@@ -94,7 +98,8 @@ class Producer(HasRedis, HasPostgreSQL):
             if self._pg:
                 self._pg.rollback()
             logger.exception(e)
-            result_msg['message'] = str(e)
+            result_msg['message'] = "数据异常！"
+            result_msg['error'] = str(e)
             result_msg = json.dumps(result_msg, cls=DateEncoder)
             return result_msg
         finally:
@@ -107,13 +112,13 @@ class Producer(HasRedis, HasPostgreSQL):
                 self._redis.close()
                 self._redis = None
 
-    def process(self, request):
+    def process(self, **param):
         """
         业务代码逻辑部分
         在子类中重写process来处理业务
         返回:
             result_flag（标识位：false/true）
-            result_msg(返回信息，json/Response)
+            result_msg(返回信息，json/其他)
         """
         result_flag = True
         result_msg = "ok"
