@@ -47,7 +47,7 @@ class HasPostgreSQL(object):
     def __init__(self):
         self._pg = None
 
-    def get_postgresql(self, dict_cursor=True):
+    def get_pg(self, dict_cursor=True):
         """获取pg数据库对象"""
         if not self._pg:
             self._pg = PostgreSQL(conn=current_app.pool.connection(), dict_cursor=dict_cursor)
