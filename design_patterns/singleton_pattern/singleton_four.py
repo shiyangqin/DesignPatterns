@@ -11,6 +11,9 @@ class SingletonFour(object):
     """
     _instance_lock = threading.Lock()
 
+    def __init__(self, *args, **kwargs):
+        pass
+
     def __new__(cls, *args, **kwargs):
         if not hasattr(SingletonFour, "_instance"):
             with SingletonFour._instance_lock:

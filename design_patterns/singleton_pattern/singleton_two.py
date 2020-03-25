@@ -4,7 +4,7 @@
 """
 
 
-def Singleton(cls):
+def singleton(cls):
     """单例装饰器"""
     _instance = {}
 
@@ -16,7 +16,7 @@ def Singleton(cls):
     return _singleton
 
 
-@Singleton
+@singleton
 class SingletonTwo(object):
     """
     单例2

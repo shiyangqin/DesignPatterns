@@ -11,15 +11,15 @@ class Factory(object):
     """
     工厂
     """
-    def create_product(self, type):
+    def create_product(self, p_type):
         """
         生产产品
         :type 产品类型  A  B  C
         """
-        if type == 'A':
+        if p_type == 'A':
             return ProductA()
-        if type == 'B':
+        if p_type == 'B':
             return ProductB()
-        if type == 'C':
+        if p_type == 'C':
             return ProductC()
         return None
