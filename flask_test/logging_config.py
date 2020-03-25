@@ -16,11 +16,11 @@ LEVELS = {
 }
 
 
-def configLogging(fileName="log.txt", logLevel="NOSET"):
+def config_logging(file_name="log.txt", log_level="NOSET"):
     """
     @summary: config logging to write logs to local file
-    @param fileName: name of log file
-    @param logLevel: log level
+    @param file_name: name of log file
+    @param log_level: log level
     """
     logs_dir = os.path.join(os.path.dirname(__file__), "logs")
     if os.path.exists(logs_dir) and os.path.isdir(logs_dir):
@@ -30,9 +30,9 @@ def configLogging(fileName="log.txt", logLevel="NOSET"):
 
     logging.getLogger("").handlers = []
 
-    fileName = os.path.join(logs_dir, fileName)
+    file_name = os.path.join(logs_dir, file_name)
     rotating_file_handler = \
-        logging.handlers.RotatingFileHandler(filename=fileName, maxBytes=1024 * 1024 * 50, backupCount=5)
+        logging.handlers.RotatingFileHandler(filename=file_name, maxBytes=1024 * 1024 * 50, backupCount=5)
     formatter = logging.Formatter("%(asctime)s %(name)-12s %(process)d %(levelname)-8s %(lineno)-6s %(message)s")
     '''
     format: 指定输出的格式和内容，format可以输出很多有用信息，如上例所示:
@@ -56,5 +56,5 @@ def configLogging(fileName="log.txt", logLevel="NOSET"):
     console.setFormatter(formatter)
     logging.getLogger("").addHandler(console)
     logger = logging.getLogger("")
-    level = LEVELS[logLevel.upper()]
+    level = LEVELS[log_level.upper()]
     logger.setLevel(level)

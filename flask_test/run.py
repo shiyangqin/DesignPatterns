@@ -6,7 +6,7 @@ from app import main_app
 from config import LOG
 from utils.pg_util import PgPool
 
-logging_config.configLogging(LOG.file_name, LOG.level)
+logging_config.config_logging(LOG.file_name, LOG.level)
 
 app = Flask(__name__)
 app.register_blueprint(main_app)

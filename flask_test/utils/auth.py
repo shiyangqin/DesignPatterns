@@ -12,7 +12,7 @@ class Permission(object):
     def __call__(self, func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            user = Permission.get_user_info()
+            user = self.get_user_info()
             flag = self.check_user(user)
             if flag:
                 try:
@@ -21,22 +21,19 @@ class Permission(object):
                 except TypeError as te:
                     raise te
             else:
-
                 return self.failMsg
         return wrapper
 
-    @staticmethod
-    def get_user_info():
+    def get_user_info(self):
         """获取用户信息"""
-        session = Permission.get_session()
+        session = self.get_session()
         """
         查询用户信息，组装json
         包括各种账户信息，例如id，name等等，还有拥有的权限信息
         """
         return {"user": "this is user info"}
 
-    @staticmethod
-    def get_session():
+    def get_session(self):
         """获取请求头信息中的session"""
         """
         请根据个人情况获取session信息
