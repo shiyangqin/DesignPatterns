@@ -2,14 +2,14 @@
 from flask import Flask, current_app
 
 import logging_config
-from app import test_app
+from app import main_app
 from config import LOG
-from utils.postgresql import PgPool
+from utils.pg_util import PgPool
 
-logging_config.configLogging(LOG.log_name, LOG.log_level)
+logging_config.configLogging(LOG.file_name, LOG.level)
 
 app = Flask(__name__)
-app.register_blueprint(test_app)
+app.register_blueprint(main_app)
 
 pg_pool = PgPool()
 app.app_context().push()

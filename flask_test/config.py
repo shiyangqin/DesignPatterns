@@ -27,22 +27,14 @@ conf = load_config(filepath)
 
 # 日志配置
 class LOG(object):
-    log_name = conf.get('LOG').get('log_name')
-    log_level = conf.get('LOG').get('log_level')
+    file_name = conf.get('LOG').get('file_name')
+    level = conf.get('LOG').get('level')
 
 
 # PG数据库配置
 class PG(object):
-    pg_host = conf.get('PG').get('pg_host')
-    pg_port = conf.get('PG').get('pg_port')
-    pg_user = conf.get('PG').get('pg_user')
-    pg_pwd = conf.get('PG').get('pg_pwd')
-    pg_name = conf.get('PG').get('pg_name')
-
-
-# redis数据库配置
-class REDIS(object):
-    redis_host = conf.get('REDIS').get('redis_host')
-    redis_port = conf.get('REDIS').get('redis_port')
-    redis_pwd = conf.get('REDIS').get('redis_pwd')
-    redis_db = conf.get('REDIS').get('redis_db')
+    host = conf.get('PG').get('host')
+    port = conf.get('PG').get('port')
+    user = conf.get('PG').get('user')
+    pwd = conf.get('PG').get('pwd')
+    name = conf.get('PG').get('name')

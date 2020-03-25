@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class PgPool(object):
     """pg数据库连接池"""
 
-    def __init__(self, host=PG.pg_host, port=PG.pg_port, database=PG.pg_name, user=PG.pg_user, password=PG.pg_pwd):
+    def __init__(self, host=PG.host, port=PG.port, database=PG.name, user=PG.user, password=PG.pwd):
         logger.debug(">>>>>>pg_pool start create>>>>>>")
         self.__pool = PooledDB(
             psycopg2,
@@ -34,7 +34,7 @@ class PgPool(object):
 class PostgreSQL(object):
     """pg数据库封装类"""
 
-    def __init__(self, host=PG.pg_host, port=PG.pg_port, database=PG.pg_name, user=PG.pg_user, password=PG.pg_pwd, conn=None, dict_cursor=True):
+    def __init__(self, host=PG.host, port=PG.port, database=PG.name, user=PG.user, password=PG.pwd, conn=None, dict_cursor=True):
         """创建连接"""
         self.__commit = False
         if conn:
@@ -62,22 +62,28 @@ class PostgreSQL(object):
         if self.__conn:
             self.__conn.close()
             self.__conn = None
-        logger.debug(">>>>>>PostgreSQL conn close>>>>>>")
+        logger.debug(">>>>>>PostgreSQL close>>>>>>")
 
-    def execute(self, sql, param_dict=(), show_sql=False):
+    def execute(self, sql, sql_dict=(), show_sql=False):
         """执行sql语句，打印日志，设置提交标识，返回数据"""
-        self.__cursor.execute(sql, param_dict)
         if show_sql:
-            logger.debug(">>>>>>sql>>>>>>: %s" % (self.__cursor.mogrify(sql, param_dict)))
-        if sql.lower().startswith(('update', 'insert', 'delete')):
+            logger.debug(">>>>>>sql>>>>>>: %s" % (self.__cursor.mogrify(sql, sql_dict)))
+        try:
+            self.__cursor.execute(sql, sql_dict)
+        except Exception as e:
+            logger.exception(">>>>>>error sql>>>>>>: %s" % (self.__cursor.mogrify(sql, sql_dict)))
+            raise e
+        if ('update ' in sql) or ('insert ' in sql) or ('delete ' in sql):
             self.__commit = True
-        if sql.lower().startswith('select') or 'returning' in sql.lower():
+        try:
             return self.__cursor.fetchall()
+        except Exception as e:
+            pass
 
     def rollback(self):
         """数据库回滚"""
         if self.__commit:
-            logger.debug(">>>>>>PostgreSQL rollback>>>>>>")
+            logger.exception(">>>>>>PostgreSQL rollback>>>>>>")
             self.__conn.rollback()
             self.__commit = False
 

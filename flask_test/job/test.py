@@ -2,11 +2,21 @@
 import logging
 
 from job import Producer
+from utils.auth import Permission
 
 logger = logging.getLogger(__name__)
 
 
 class Test(Producer):
-    def process(self, **param):
+
+    @Permission('test')
+    def do(self, **kwargs):
+        return super().do(**kwargs)
+
+    def process(self, **kwargs):
         logger.debug('this is test')
-        return True, "this is test"
+        res = {
+            "message": "this is test",
+            "user": kwargs['user']
+        }
+        return res

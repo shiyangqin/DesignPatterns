@@ -2,6 +2,6 @@
 
 from flask import Blueprint
 
-test_app = Blueprint(__name__ + "_app", __name__, url_prefix='/test')
+main_app = Blueprint(__name__ + "_app", __name__)
 
-from . import app_test
+from . import test

@@ -1,12 +1,5 @@
-2019-12-12 16:54:15,004 utils.postgresql 388 DEBUG    17     >>>>>>pg_pool start create>>>>>>
-2019-12-12 16:54:15,462 utils.postgresql 388 DEBUG    28     >>>>>>pg_pool create success>>>>>>
-2019-12-12 16:54:15,475 werkzeug     388 INFO     122     * Restarting with stat
-2019-12-12 16:54:16,041 utils.postgresql 2044 DEBUG    17     >>>>>>pg_pool start create>>>>>>
-2019-12-12 16:54:16,643 utils.postgresql 2044 DEBUG    28     >>>>>>pg_pool create success>>>>>>
-2019-12-12 16:54:16,652 werkzeug     2044 WARNING  122     * Debugger is active!
-2019-12-12 16:54:16,655 werkzeug     2044 INFO     122     * Debugger PIN: 215-678-611
-2019-12-12 16:54:16,666 werkzeug     2044 INFO     122     * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
-2019-12-12 16:54:19,660 werkzeug     2044 INFO     122    127.0.0.1 - - [12/Dec/2019 16:54:19] "GET /test HTTP/1.1" 308 -
-2019-12-12 16:54:19,662 app.app_test 2044 DEBUG    15     ================server test================
-2019-12-12 16:54:19,663 job.test     2044 DEBUG    11     this is test
-2019-12-12 16:54:19,663 werkzeug     2044 INFO     122    127.0.0.1 - - [12/Dec/2019 16:54:19] "GET /test/ HTTP/1.1" 200 -
+2020-03-25 11:45:32,642 werkzeug     11364 INFO     122     * Restarting with stat
+2020-03-25 11:45:33,898 werkzeug     13368 WARNING  122     * Debugger is active!
+2020-03-25 11:45:33,904 werkzeug     13368 INFO     122     * Debugger PIN: 215-678-611
+2020-03-25 11:45:33,921 werkzeug     13368 INFO     122     * Running on http://0.0.0.0:9000/ (Press CTRL+C to quit)
+2020-03-25 11:45:38,252 werkzeug     13368 INFO     122    10.255.175.48 - - [25/Mar/2020 11:45:38] "GET /test HTTP/1.1" 200 -
