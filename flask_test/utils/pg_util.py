@@ -66,13 +66,13 @@ class PostgreSQL(object):
 
     def execute(self, sql, sql_dict=(), show_sql=False):
         """执行sql语句，打印日志，设置提交标识，返回数据"""
-        if show_sql:
-            logger.debug(">>>>>>sql>>>>>>: %s" % (self.__cursor.mogrify(sql, sql_dict)))
         try:
             self.__cursor.execute(sql, sql_dict)
         except Exception as e:
             logger.exception(">>>>>>error sql>>>>>>: %s" % (self.__cursor.mogrify(sql, sql_dict)))
             raise e
+        if show_sql:
+            logger.debug(">>>>>>sql>>>>>>: %s" % (self.__cursor.mogrify(sql, sql_dict)))
         if ('update ' in sql) or ('insert ' in sql) or ('delete ' in sql):
             self.__commit = True
         try:
