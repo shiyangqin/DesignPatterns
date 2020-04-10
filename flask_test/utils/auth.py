@@ -31,7 +31,7 @@ class Permission(object):
         查询用户信息，组装json
         包括各种账户信息，例如id，name等等，还有拥有的权限信息
         """
-        return {"user": "this is user info"}
+        return "this is user info"
 
     @staticmethod
     def get_session():
