@@ -1,7 +1,8 @@
 # -*- coding: UTF-8 -*-
 import json
 import logging
-import datetime
+from datetime import date
+from datetime import datetime
 
 from flask import current_app, request
 
@@ -15,9 +16,9 @@ class DateEncoder(json.JSONEncoder):
     """解决json序列化时时间不能序列化问题"""
 
     def default(self, obj):
-        if isinstance(obj, datetime.datetime):
+        if isinstance(obj, datetime):
             return obj.strftime('%Y-%m-%d %H:%M:%S')
-        elif isinstance(obj, datetime.date):
+        elif isinstance(obj, date):
             return obj.strftime('%Y-%m-%d')
         else:
             return json.JSONEncoder.default(self, obj)
@@ -63,6 +64,8 @@ class Producer(HasPostgreSQL):
             # 业务处理逻辑
             kwargs['request'] = request
             msg = self.process(**kwargs)
+
+            # 处理返回值
             if self._process_type == 0:
                 result_msg['message'] = 'ok'
                 result_msg['data'] = msg
@@ -81,8 +84,7 @@ class Producer(HasPostgreSQL):
             logger.exception(e)
             result_msg['message'] = "数据异常！"
             result_msg['error'] = str(e)
-            result_msg = json.dumps(result_msg, cls=DateEncoder)
-            return result_msg
+            return json.dumps(result_msg)
         finally:
             # 释放资源
             if self._pg:

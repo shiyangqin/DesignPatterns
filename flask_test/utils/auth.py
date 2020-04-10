@@ -5,7 +5,7 @@ import functools
 class Permission(object):
     """类函数权限验证装饰器"""
 
-    def __init__(self, function, fail_msg='{"status": "not allow"}'):
+    def __init__(self, function, fail_msg='{"message": "not allow"}'):
         self.function = function
         self.failMsg = fail_msg
 
@@ -33,7 +33,8 @@ class Permission(object):
         """
         return {"user": "this is user info"}
 
-    def get_session(self):
+    @staticmethod
+    def get_session():
         """获取请求头信息中的session"""
         """
         请根据个人情况获取session信息

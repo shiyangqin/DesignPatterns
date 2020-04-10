@@ -16,7 +16,7 @@ class Test(Producer):
     def process(self, **kwargs):
         logger.debug('this is test')
         res = {
-            "message": "this is test",
+            "msg": "this is test",
             "user": kwargs['user']
         }
         return res
