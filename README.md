@@ -1,5 +1,5 @@
 ## Qinsy
 
-+ design_patterns:设计模式学习练习
++ design_patterns:设计模式简单学习
 
 + flask_test:flask开发实例
