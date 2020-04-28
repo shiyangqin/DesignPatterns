@@ -77,8 +77,6 @@ class Producer(HasPostgreSQL):
             return result_msg
         except Exception as e:
             # 异常处理逻辑
-            if LOG.level.lower() == "error":
-                logger.exception("==================  " + self.__class__.__name__ + "  ==================")
             if self._pg:
                 self._pg.rollback()
             logger.exception(e)
