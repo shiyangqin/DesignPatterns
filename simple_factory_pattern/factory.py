@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-工厂
-"""
 from simple_factory_pattern.product.product_a import ProductA
 from simple_factory_pattern.product.product_b import ProductB
 from simple_factory_pattern.product.product_c import ProductC
 
 
 class Factory(object):
-    """
-    工厂
-    """
+    """工厂"""
+
     def create_product(self, p_type):
         """
         生产产品

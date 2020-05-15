@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
-物品接口
-"""
 
 
 class Item(object):
-    """
-    物品接口
-    """
+    """物品接口"""
+
     def name(self):
         """名称"""
         pass

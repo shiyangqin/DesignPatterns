@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
-主题工厂接口
-"""
-from abstract_factory_pattern.theme import Theme
+from abstract_factory_pattern.theme_factory.theme import Theme
 
 
 class IThemeFactory(object):
-    """
-    主题工厂接口
-    """
+    """主题工厂接口"""
 
     def create_theme(self):
         """生产主题"""

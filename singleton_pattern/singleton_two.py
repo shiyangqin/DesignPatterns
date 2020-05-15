@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
-单例2
-"""
 
 
 def singleton(cls):
     """单例装饰器"""
+
     _instance = {}
 
     def _singleton(*args, **kwargs):

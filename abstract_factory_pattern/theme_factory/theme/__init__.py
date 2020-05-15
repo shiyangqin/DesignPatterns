@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
-主题类
-"""
 
 
 class Theme(object):
-    """
-    主题类
-    """
+    """主题类"""
+
     def __init__(self):
         self.__font = None
         self.__colour = None

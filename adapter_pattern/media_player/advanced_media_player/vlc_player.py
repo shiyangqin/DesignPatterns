@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Vlc播放器
-"""
 from adapter_pattern.media_player.advanced_media_player import AdvancedMediaPlayer
 
 

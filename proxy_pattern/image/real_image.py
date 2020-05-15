@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-图片
-"""
 from proxy_pattern.image import Image
 
 

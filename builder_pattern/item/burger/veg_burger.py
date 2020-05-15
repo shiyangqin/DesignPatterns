@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-素食汉堡
-"""
 from builder_pattern.item.burger import Burger
 
 
 class VegBurger(Burger):
-    """
-    素食汉堡
-    """
+    """素食汉堡"""
+
     def name(self):
         """汉堡名称"""
         return "Veg burger"

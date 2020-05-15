@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from simple_factory_pattern.product import IProduct
+from factory_method_pattern.factory.product import IProduct
 
 
 class ProductA(IProduct):

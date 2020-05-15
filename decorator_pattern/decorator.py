@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-装饰器
-"""
 import functools
 
 

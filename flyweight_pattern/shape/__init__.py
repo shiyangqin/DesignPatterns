@@ -1,22 +1,18 @@
 # -*- coding: utf-8 -*-
-"""
-模型类接口
-"""
 from flyweight_pattern.shape.circle import Circle
 
+
 class Shape(object):
-    """
-    模型类接口
-    """
+    """模型类接口"""
+
     def draw(self):
         """画模型"""
         pass
 
 
 class ShapeFactory(object):
-    """
-    模型工厂
-    """
+    """模型工厂"""
+
     __circle_dict = {}
 
     @classmethod

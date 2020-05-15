@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-控制台记录器
-"""
-from chain_of_responsibility_pattern.logger import LoggerLevel,AbstractLogger
+from chain_of_responsibility_pattern.logger import LoggerLevel, AbstractLogger
 
 
 class ConsoleLogger(AbstractLogger):
-    """
-    控制台记录器
-    """
+    """控制台记录器"""
+
     def __init__(self, level=LoggerLevel.INFO):
         AbstractLogger.__init__(self)
         self._level = level

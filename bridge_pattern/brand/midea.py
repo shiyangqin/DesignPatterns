@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-美的
-"""
 from bridge_pattern.brand import Brand
 
 
 class Midea(Brand):
-    """
-    格力
-    """
+    """格力"""
+
     def __init__(self, electric_appliance):
         Brand.__init__(self, electric_appliance)
         self._name = "美的"

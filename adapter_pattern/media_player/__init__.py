@@ -1,24 +1,17 @@
 # -*- coding: utf-8 -*-
-"""
-媒体播放器接口
-"""
 from adapter_pattern.media_player.advanced_media_player.mp4_player import Mp4Player
 from adapter_pattern.media_player.advanced_media_player.vlc_player import VlcPlayer
 
-class MediaPlayer(object):
-    """
-    媒体播放器接口
-    """
 
+class MediaPlayer(object):
+    """媒体播放器接口"""
     def play(self, audio_type, file_name):
         """播放mp3"""
         pass
 
 
 class MediaAdapter(MediaPlayer):
-    """
-    适配器
-    """
+    """适配器"""
 
     def __init__(self):
         self._vlc_player = VlcPlayer()

@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-单例类3
-"""
 import threading
 
 
 class SingletonThree(object):
-    """
-    单例3
-    """
+    """单例3"""
+
     _instance_lock = threading.Lock()
 
     def __init__(self, *args, **kwargs):

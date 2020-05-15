@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-先进媒体播放器接口
-"""
 
 
 class AdvancedMediaPlayer(object):

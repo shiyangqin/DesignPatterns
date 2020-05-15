@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
-套餐
-"""
 
 
 class Meal(object):
-    """
-    套餐
-    """
+    """套餐"""
+
     def __init__(self):
         self.items = []
 

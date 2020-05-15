@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-圆形
-"""
 from facade_pattern.shape import Shape
 
 
 class Circle(Shape):
-    """
-    圆形
-    """
+    """圆形"""
+
     def __init__(self, color=None, x=None, y=None, radius=None):
         self.__color = color
         self.__x = x
@@ -29,4 +25,6 @@ class Circle(Shape):
 
     def draw(self):
         """画圆形"""
-        print("Circle::draw()[Color: {}, x: {}, y:{}, radius: {}]".format(self.__color, self.__x, self.__y, self.__radius))
+        print(
+            "Circle::draw()[Color: {}, x: {}, y:{}, radius: {}]".format(self.__color, self.__x, self.__y, self.__radius)
+        )

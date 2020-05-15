@@ -4,6 +4,7 @@ from flyweight_pattern.shape import ShapeFactory
 
 color = ("Red", "Green", "Blue", "White", "Black")
 
+
 def get_random_colors():
     return color[random.randint(0, len(color) - 1)]
 

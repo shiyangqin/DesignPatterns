@@ -1,26 +1,23 @@
 # -*- coding: utf-8 -*-
-"""
-模型类接口
-"""
+
 
 class Shape(object):
-    """
-    模型类接口
-    """
+    """模型类接口"""
+
     def draw(self):
         """画模型"""
         pass
 
 
+# 在这里导入的原因是因为这些类实现了上面的抽象类，在文件一开始就导入会报错
 from facade_pattern.shape.circle import Circle
 from facade_pattern.shape.rectangle import Rectangle
 from facade_pattern.shape.square import Square
 
 
 class ShapeMaker(object):
-    """
-    模型外观类
-    """
+    """模型外观类"""
+
     def __init__(self):
         self.__rectangle = Rectangle()
         self.__square = Square()

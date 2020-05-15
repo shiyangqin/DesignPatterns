@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-主函数
-"""
 from factory_method_pattern.factory.factory_a import FactoryA
 from factory_method_pattern.factory.factory_b import FactoryB
 
@@ -13,5 +10,5 @@ if __name__ == '__main__':
     product_a.show()
     print('================产品B================')
     factory_b = FactoryB()
-    product_b = factory_a.create_product()
+    product_b = factory_b.create_product()
     product_b.show()

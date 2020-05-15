@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-员工类
-"""
 
 
 class Employee(object):
@@ -28,4 +25,4 @@ class Employee(object):
 
     def __str__(self):
         """对象描述信息"""
-        return ("Employee :[ Name : " + self.__name + ", dept : " + self.__dept + ", salary :" + self.__salary+" ]")
+        return "Employee :[ Name : " + self.__name + ", dept : " + self.__dept + ", salary :" + self.__salary+" ]"

@@ -1,20 +1,15 @@
 # -*- coding: utf-8 -*-
-"""
-抽象记录器
-"""
 
 
 class LoggerLevel(object):
-
+    """日志等级"""
     INFO = 1
     DEBUG = 2
     ERROR = 3
 
 
 class AbstractLogger(object):
-    """
-    抽象记录器
-    """
+    """抽象记录器"""
 
     def __init__(self):
         self._level = None
@@ -36,6 +31,7 @@ class AbstractLogger(object):
         pass
 
 
+# 在这里导入的原因是因为ConsoleLogger、ErrorLogger、FileLogger等类实现了上面的抽象类，在文件一开始就导入会报错
 import threading
 from chain_of_responsibility_pattern.logger.console_logger import ConsoleLogger
 from chain_of_responsibility_pattern.logger.error_logger import ErrorLogger
@@ -43,7 +39,7 @@ from chain_of_responsibility_pattern.logger.file_logger import FileLogger
 
 
 class Logger(object):
-
+    """记录器"""
     __lock = threading.Lock()
     __logger = None
 

@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-主函数
-"""
 from simple_factory_pattern.factory import Factory
 
 

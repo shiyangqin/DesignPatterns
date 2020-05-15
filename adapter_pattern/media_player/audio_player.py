@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-音频播放器
-"""
 from adapter_pattern.media_player import MediaPlayer, MediaAdapter
 
 
